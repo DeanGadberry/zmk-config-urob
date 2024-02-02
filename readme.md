@@ -1,6 +1,6 @@
 # urob's zmk-config
 
-This is my personal [ZMK firmware](https://github.com/zmkfirmware/zmk/) configuration.
+This is Urob's personal [ZMK firmware](https://github.com/zmkfirmware/zmk/) configuration.
 It consists of a 34-keys base layout that is re-used for various boards, including my
 Corneish Zen and my Planck.
 
