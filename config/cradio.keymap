@@ -4,6 +4,9 @@
 /* activate bluetooth */
 #define CONFIG_WIRELESS 1
 
+/* set default OS to Linux for international character usage */
+#define HOST_OS 1
+
 /* source the main keymap */
 #include "base.keymap"
 
