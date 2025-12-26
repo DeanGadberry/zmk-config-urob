@@ -30,7 +30,7 @@ compatible with Zephyr 3.0 is available
   [build-scripts](https://github.com/urob/zmk-config/tree/main/scripts#readme)
   for local and Docker-based building (independently of VS Code)
 
-![](img/keymap.png)
+![](img/dean_keymap.png)
 
 ## Timeless homerow mods
 
