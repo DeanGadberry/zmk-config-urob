@@ -214,11 +214,8 @@ ZMK_BEHAVIOR(win_sleep, macro,
 
 /* Keymap */
 
-<<<<<<< HEAD
-ZMK_CONDITIONAL_LAYER(FN NUM, SYS)  // hold FN + tap NUM --> gives one key press on SYS
-=======
-ZMK_CONDITIONAL_LAYER(FN NUM, SYS)  // NUM + FN --> SYS (because FN + NUM --> MUTE)
->>>>>>> 24e4c2a6f0361d6fb2c088b2510891797a14c66e
+ZMK_CONDITIONAL_LAYER(FN NUM, SYS)  // hold FN + tap NUM --> gives one key press on SYS (this worked after gemini suggested)
+                                    // NUM + FN --> SYS (because FN + NUM --> MUTE) (this note is old and IDK why the above worked today)
 
 ZMK_LAYER(base,
 //╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
