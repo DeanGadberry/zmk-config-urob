@@ -173,11 +173,11 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
+  - /
   - '7'
   - '8'
   - '9'
+  - '-'
   - t: ▽
     type: trans
   - t: ▽
@@ -188,18 +188,11 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: '4'
-    h: Shift
-  - t: '5'
-    h: Ctrl
-  - t: '6'
-    h: Alt
-  - t: '0'
-    h: Gui
+  - '*'
+  - '4'
+  - '5'
+  - '6'
+  - +
   - t: ▽
     type: trans
   - t: ▽
@@ -210,20 +203,17 @@ layers:
     type: trans
   - t: ▽
     type: trans
-  - t: ▽
-    type: trans
+  - Cancel
   - '1'
   - '2'
   - '3'
+  - Enter
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - '0'
   - .
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
   sys:
   - BT 1
   - BT 2
@@ -454,7 +444,7 @@ combos:
     h: Shift+Ctrl
     s: <
   l:
-  - Combos
+  - base
 - p:
   - 17
   - 18
@@ -463,20 +453,20 @@ combos:
     h: Alt+Ctrl
     s: '>'
   l:
-  - Combos
+  - base
 - p:
   - 16
   - 17
   k: <
   l:
-  - Combos
+  - nav
   hidden: true
 - p:
   - 17
   - 18
   k: '>'
   l:
-  - Combos
+  - nav
   hidden: true
 - p:
   - 26
@@ -485,7 +475,7 @@ combos:
     t: '['
     s: '{'
   l:
-  - Combos
+  - base
 - p:
   - 27
   - 28
@@ -493,20 +483,20 @@ combos:
     t: ']'
     s: '}'
   l:
-  - Combos
+  - base
 - p:
   - 26
   - 27
   k: '{'
   l:
-  - Combos
+  - nav
   hidden: true
 - p:
   - 27
   - 28
   k: '}'
   l:
-  - Combos
+  - nav
   hidden: true
 - p:
   - 1
@@ -604,3 +594,9 @@ combos:
   k: '|'
   l:
   - Combos
+- p:
+  - 9
+  - 19
+  k: '='
+  l:
+  - num

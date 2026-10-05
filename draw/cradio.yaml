@@ -470,14 +470,14 @@ combos:
   - 17
   k: <
   l:
-  - Combos
+  - nav
   hidden: true
 - p:
   - 17
   - 18
   k: '>'
   l:
-  - Combos
+  - nav
   hidden: true
 - p:
   - 26
@@ -500,14 +500,14 @@ combos:
   - 27
   k: '{'
   l:
-  - Combos
+  - nav
   hidden: true
 - p:
   - 27
   - 28
   k: '}'
   l:
-  - Combos
+  - nav
   hidden: true
 - p:
   - 1

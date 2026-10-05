@@ -25,12 +25,14 @@ cd "$root"  # zmk_additional_includes in draw/config.yaml are relative to here
 for keymap in config/cradio*.keymap; do
     name="$(basename "$keymap" .keymap)"
     echo "Drawing $name..."
-    # Draw all combos on their own "Combos" diagram instead of on every layer.
+    # Draw combos on their own "Combos" diagram instead of on every layer;
+    # combos that exist on a single layer only are drawn on that layer.
     keymap -c "$cfg" parse -z "$keymap" --virtual-layers Combos |
         python3 -c 'import sys, yaml
 km = yaml.safe_load(sys.stdin)
 for combo in km.get("combos", []):
-    combo["l"] = ["Combos"]
+    if len(combo.get("l", [])) != 1:
+        combo["l"] = ["Combos"]
 yaml.safe_dump(km, sys.stdout, allow_unicode=True, sort_keys=False)' >"draw/$name.yaml"
     keymap -c "$cfg" draw -z "$keyboard" "draw/$name.yaml" >"draw/$name.svg"
 done
