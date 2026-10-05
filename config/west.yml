@@ -1,4 +1,9 @@
+# Official ZMK plus urob's behavior modules, all pinned to the same release.
+# To upgrade, bump every `revision` together to the next ZMK release tag
+# (and the `@v0.3` in .github/workflows/build.yml).
 manifest:
+  defaults:
+    revision: v0.3
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
@@ -6,8 +11,16 @@ manifest:
       url-base: https://github.com/urob
   projects:
     - name: zmk
-      remote: urob
-      revision: main
+      remote: zmkfirmware
       import: app/west.yml
+    - name: zmk-helpers  # ZMK_LAYER, ZMK_COMBO, ... macros and key-position labels
+      remote: urob
+      path: modules/zmk/helpers
+    - name: zmk-auto-layer  # num-word
+      remote: urob
+      path: modules/zmk/auto-layer
+    - name: zmk-tri-state  # alt-tab swapper
+      remote: urob
+      path: modules/zmk/tri-state
   self:
     path: config

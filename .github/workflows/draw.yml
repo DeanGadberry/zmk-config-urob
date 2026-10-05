@@ -1,0 +1,53 @@
+# Redraw the keymap images in draw/ whenever a keymap or the drawing config
+# changes, and commit the result back to the branch.
+name: Draw keymaps
+
+on:
+  push:
+    paths:
+      - "config/*.keymap"
+      - "config/*.dtsi"
+      - "config/*.h"
+      - "draw/config.yaml"
+      - "scripts/draw.sh"
+      - "config/west.yml"
+      - ".github/workflows/draw.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: draw-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install keymap-drawer
+        run: pip install keymap-drawer==0.23.0
+
+      - name: Draw keymaps
+        run: scripts/draw.sh
+
+      - name: Commit updated images
+        run: |
+          git add draw/
+          if git diff --cached --quiet; then
+            echo "Keymap images are up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # [skip ci]: only images changed, so don't rebuild the firmware.
+          git commit -m "Redraw keymap images [skip ci]"
+          git push

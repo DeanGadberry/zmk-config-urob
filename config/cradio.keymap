@@ -1,11 +1,8 @@
 /* source keypos definitions */
-#include "../zmk-nodefree-config/keypos_def/keypos_34keys.h"
+#include <zmk-helpers/key-labels/34.h>
 
 /* activate bluetooth */
 #define CONFIG_WIRELESS 1
-
-/* set default OS to Linux for international character usage */
-#define HOST_OS 1
 
 /* source the main keymap */
 #include "base.keymap"

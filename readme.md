@@ -10,8 +10,8 @@ compatible with Zephyr 3.0 is available
 
 ## Highlights
 
-- clean keymap + unicode setup using helper macros from
-  [zmk-nodefree-config](https://github.com/urob/zmk-nodefree-config)
+- clean keymap setup using helper macros from
+  [zmk-helpers](https://github.com/urob/zmk-helpers)
 - the base keymap and combo setup are independent of the physical location of
   keys and are re-used for multiple keyboards. The configuration is fit onto
   larger boards by padding it via a modular structure of "extra keys"
@@ -24,13 +24,46 @@ compatible with Zephyr 3.0 is available
 - more intuitive shift-actions: <kbd>, ;</kbd>, <kbd>. :</kbd> and <kbd>? !</kbd>
 - <kbd>shift</kbd> + <kbd>space</kbd> morphs into <kbd>dot</kbd> →
   <kbd>space</kbd> → <kbd>sticky-shift</kbd>
-- "Greek" layer for mathematical typesetting (activated as sticky-layer via a combo)
-- modified Github Actions workflow that recognizes git-submodules
 - automated
   [build-scripts](https://github.com/urob/zmk-config/tree/main/scripts#readme)
   for local and Docker-based building (independently of VS Code)
 
-![](img/dean_keymap.png)
+![Keymap](draw/cradio.svg)
+
+The keymap images in [`draw/`](draw/) are generated with
+[keymap-drawer](https://github.com/caksoylar/keymap-drawer) by the "Draw
+keymaps" GitHub Action whenever a keymap changes, so they always match the
+firmware: [`cradio.svg`](draw/cradio.svg) (default) and
+[`cradio_alt.svg`](draw/cradio_alt.svg) (alt variant). To redraw locally, run
+`scripts/draw.sh` (needs Python 3.12+ and `pip install keymap-drawer==0.23.0`).
+Labels and styling live in [`draw/config.yaml`](draw/config.yaml).
+
+## Keymap variants
+
+The Cradio is built with two independent keymaps, each as its own firmware:
+
+| Variant | Entry file | Keymap | Firmware files |
+| --- | --- | --- | --- |
+| default | `config/cradio.keymap` | `config/base.keymap` | `cradio_{left,right}-nice_nano_v2-zmk.uf2` |
+| alt | `config/cradio_alt.keymap` | `config/alt.keymap` | `cradio_{left,right}-nice_nano_v2-cradio_alt-zmk.uf2` |
+
+Both variants share `cradio.conf` and (for now) `combos.dtsi`. To add another
+variant, copy `cradio_alt.keymap` + `alt.keymap` under a new name and add
+matching entries to `build.yaml` with
+`cmake-args: -DKEYMAP_FILE=${GITHUB_WORKSPACE}/config/<name>.keymap` and an
+`artifact-name`. All firmware files end up in the single `firmware` artifact of
+the GitHub Actions run.
+
+## Firmware version
+
+This config builds with **official ZMK `v0.3`** using ZMK's own GitHub Actions
+workflow. The features that used to need urob's ZMK fork come from urob's
+modules instead, pinned to the same release in `config/west.yml`:
+[zmk-helpers](https://github.com/urob/zmk-helpers) (keymap macros),
+[zmk-auto-layer](https://github.com/urob/zmk-auto-layer) (num-word) and
+[zmk-tri-state](https://github.com/urob/zmk-tri-state) (Alt-Tab swapper).
+To upgrade, change every `v0.3` in `config/west.yml` and
+`.github/workflows/build.yml` to the next ZMK release.
 
 ## Timeless homerow mods
 
@@ -182,9 +215,6 @@ locations while also making them easy to remember. Specifically:
   `>`, `{` and `}` being accessed from the Navigation layer
 - left-hand side combos for `tap`, `esc`, `enter`, `cut` (on <kbd>X</kbd> + <kbd>D</kbd>),
   `copy` and `paste` that go well with right-handed mouse usage
-- <kbd>L</kbd> + <kbd>Y</kbd> switches to the Greek layer for a single key
-  press, <kbd>L</kbd> + <kbd>U</kbd> + <kbd>Y</kbd> activates one-shot shift in
-  addition
 - <kbd>W</kbd> + <kbd>P</kbd> activates the smart mouse layer
 
 ## Smart layers and other gimmicks
