@@ -29,7 +29,15 @@ compatible with Zephyr 3.0 is available
   [build-scripts](https://github.com/urob/zmk-config/tree/main/scripts#readme)
   for local and Docker-based building (independently of VS Code)
 
-![](img/dean_keymap.png)
+![Keymap](draw/cradio.svg)
+
+The keymap images in [`draw/`](draw/) are generated with
+[keymap-drawer](https://github.com/caksoylar/keymap-drawer) by the "Draw
+keymaps" GitHub Action whenever a keymap changes, so they always match the
+firmware: [`cradio.svg`](draw/cradio.svg) (default) and
+[`cradio_alt.svg`](draw/cradio_alt.svg) (alt variant). To redraw locally, run
+`scripts/draw.sh` (needs Python 3.12+ and `pip install keymap-drawer==0.23.0`).
+Labels and styling live in [`draw/config.yaml`](draw/config.yaml).
 
 ## Keymap variants
 

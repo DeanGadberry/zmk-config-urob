@@ -1,0 +1,133 @@
+# keymap-drawer settings (https://github.com/caksoylar/keymap-drawer).
+# Used by scripts/draw.sh and the "Draw keymaps" GitHub Action, which
+# regenerate draw/*.svg whenever the keymaps change.
+# Styling adapted from urob/zmk-config's draw/config.yaml.
+
+parse_config:
+  trans_legend: { t: "▽", type: trans }
+
+  # Exact binding text -> label (checked before keycode mapping).
+  raw_binding_map:
+    "&sys_reset": Reset
+    "&bootloader": Boot
+    "&caps_word": Caps Word
+    "&win_sleep": Sleep
+    "&swapper": NWin
+    "&kp LS(TAB)": PWin
+    "&dot_spc": ". Spc ⇧"
+    "&num_dance": { t: Smart Num }
+    "&smart_shft": { t: Shift, s: Caps Word }
+    "&smart_num NUM 0": { t: Smart Num, h: Num }
+    "&lt_spc FN 0": { t: Spc, h: Fn, s: ". Spc ⇧" }
+    "&kp K_CANCEL": Cancel
+
+    "&bt BT_SEL 0": BT 1
+    "&bt BT_SEL 1": BT 2
+    "&bt BT_SEL 2": BT 3
+    "&bt BT_SEL 3": BT 4
+    "&bt BT_CLR": BT Clear
+
+    "&kp LC(INS)": Copy
+    "&kp LC(X)": Cut
+    "&kp LS(INS)": Paste
+
+    "&hmr RSHFT LG(LC(LEFT))": { t: PDesk, h: Shift }
+    "&hmr LALT LG(LC(RIGHT))": { t: NDesk, h: Alt }
+    "&kp LG(LC(LS(A)))": PinApp
+    "&kp LG(LC(LS(Q)))": PinWin
+    "&kp LA(GRAVE)": Desktops
+
+  # Nav-layer combos share keys with ( ) [ ]; their labels are set on those
+  # combos below instead of drawing them twice.
+  zmk_combos:
+    combo_lt: { hidden: true }
+    combo_gt: { hidden: true }
+    combo_lbrc: { hidden: true }
+    combo_rbrc: { hidden: true }
+    combo_lpar: { key: { t: "(", s: "<", h: "Shift+Ctrl" } }
+    combo_rpar: { key: { t: ")", s: ">", h: "Alt+Ctrl" } }
+    combo_lbkt: { key: { t: "[", s: "{" } }
+    combo_rbkt: { key: { t: "]", s: "}" } }
+
+  zmk_keycode_map:
+    LALT: Alt
+    RALT: Alt
+    LCTRL: Ctrl
+    RCTRL: Ctrl
+    LGUI: Gui
+    RGUI: Gui
+    LSHFT: Shift
+    RSHFT: Shift
+    LSHIFT: Shift
+
+    BSPC: Bspc
+    DEL: Del
+    ESC: Esc
+    RET: Enter
+    RETURN: Enter
+    SPACE: Spc
+    TAB: Tab
+    CAPSLOCK: Caps
+    PG_UP: PgUp
+    PG_DN: PgDn
+    INS: Ins
+    HOME: Home
+    END: End
+    UP: ↑
+    DOWN: ↓
+    LEFT: ←
+    RIGHT: →
+
+    C_MUTE: Mute
+    C_PP: Play/Pause
+    C_VOL_UP: Vol +
+    C_VOL_DN: Vol −
+    C_NEXT: Next
+    C_PREV: Prev
+
+    AMPS: "&"
+    AT: "@"
+    BSLH: \
+    CARET: ^
+    COLON: ":"
+    COMMA: ","
+    DLLR: $
+    DOT: .
+    EQUAL: "="
+    EXCL: "!"
+    FSLH: /
+    GRAVE: "`"
+    GT: ">"
+    HASH: "#"
+    LBKT: "["
+    LBRC: "{"
+    LPAR: (
+    LT: <
+    MINUS: "-"
+    PIPE: "|"
+    PLUS: +
+    PRCNT: "%"
+    QMARK: "?"
+    RBKT: "]"
+    RBRC: "}"
+    RPAR: )
+    SEMICOLON: ;
+    SQT: "'"
+    STAR: "*"
+    TILDE: "~"
+    UNDER: _
+
+draw_config:
+  append_colon_to_layer_header: false
+  dark_mode: auto
+  glyph_tap_size: 15
+  glyph_hold_size: 12
+  glyph_shifted_size: 10
+  outer_pad_w: 10
+  outer_pad_h: 10
+  small_pad: 4
+
+  svg_extra_style: |
+    svg.keymap { font-family: Calibri, system-ui, sans-serif; }
+    text.hold    { font-size: 11px; }
+    text.shifted { font-size: 10px; }

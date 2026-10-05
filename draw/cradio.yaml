@@ -1,0 +1,607 @@
+layout:
+  zmk_keyboard: cradio
+layers:
+  base:
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - t: A
+    h: Gui
+  - t: S
+    h: Alt
+  - t: D
+    h: Ctrl
+  - t: F
+    h: Shift
+  - G
+  - H
+  - t: J
+    h: Shift
+  - t: K
+    h: Ctrl
+  - t: L
+    h: Alt
+  - t: ''''
+    h: Gui
+  - Z
+  - X
+  - C
+  - V
+  - B
+  - N
+  - M
+  - t: ','
+    s: ;
+  - t: .
+    s: ':'
+  - t: '?'
+    s: '!'
+  - t: Enter
+    h: nav
+  - t: Spc
+    h: Fn
+    s: . Spc ⇧
+  - t: Smart Num
+    h: Num
+  - t: Shift
+    s: Caps Word
+  nav:
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - PWin
+  - NWin
+  - t: ▽
+    type: trans
+  - t: Bspc
+    h: Ctl+Bspc
+  - PgDn
+  - PgUp
+  - t: Del
+    h: Ctl+Del
+  - t: ▽
+    type: trans
+  - t: Gui
+    h: sticky
+  - t: Alt
+    h: sticky
+  - t: Ctrl
+    h: sticky
+  - t: Shift
+    h: sticky
+  - t: ▽
+    type: trans
+  - t: ←
+    h: Home
+  - t: ↓
+    h: Ctl+End
+  - t: ↑
+    h: Ctl+Home
+  - t: →
+    h: End
+  - Enter
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - Ins
+  - Tab
+  - <
+  - '>'
+  - t: ▽
+    type: trans
+  - type: held
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - Cancel
+  fn:
+  - F12
+  - F7
+  - F8
+  - F9
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - Prev
+  - Vol +
+  - Next
+  - Sleep
+  - t: F11
+    h: Gui
+  - t: F4
+    h: Alt
+  - t: F5
+    h: Ctrl
+  - t: F6
+    h: Shift
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: PDesk
+    h: Shift
+  - t: Vol −
+    h: Ctrl
+  - t: NDesk
+    h: Alt
+  - t: ▽
+    type: trans
+  - F10
+  - F1
+  - F2
+  - F3
+  - t: ▽
+    type: trans
+  - PinApp
+  - PinWin
+  - Desktops
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - Mute
+  - Play/Pause
+  num:
+  - t: ▽
+    type: trans
+  - '7'
+  - '8'
+  - '9'
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: '0'
+    h: Gui
+  - t: '4'
+    h: Alt
+  - t: '5'
+    h: Ctrl
+  - t: '6'
+    h: Shift
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - '1'
+  - '2'
+  - '3'
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  sys:
+  - BT 1
+  - BT 2
+  - BT 3
+  - BT 4
+  - BT Clear
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - Boot
+  - Boot
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - Reset
+  - Reset
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  - t: ▽
+    type: trans
+  game:
+  - Esc
+  - Q
+  - W
+  - E
+  - R
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Tab
+  - A
+  - S
+  - D
+  - F
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Shift
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Spc
+  - ''
+  - ''
+  blank:
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  Combos:
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+combos:
+- p:
+  - 1
+  - 2
+  k: Esc
+  l:
+  - Combos
+- p:
+  - 2
+  - 3
+  k: Enter
+  l:
+  - Combos
+- p:
+  - 11
+  - 12
+  k:
+    t: Tab
+    h: Alt+Ctrl
+  l:
+  - Combos
+- p:
+  - 12
+  - 13
+  k: Caps
+  l:
+  - Combos
+- p:
+  - 21
+  - 23
+  k: Cut
+  l:
+  - Combos
+- p:
+  - 21
+  - 22
+  k: Copy
+  l:
+  - Combos
+- p:
+  - 22
+  - 23
+  k: Paste
+  l:
+  - Combos
+- p:
+  - 6
+  - 7
+  k: Bspc
+  l:
+  - Combos
+- p:
+  - 7
+  - 8
+  k: Del
+  l:
+  - Combos
+- p:
+  - 16
+  - 17
+  k:
+    t: (
+    h: Shift+Ctrl
+    s: <
+  l:
+  - Combos
+- p:
+  - 17
+  - 18
+  k:
+    t: )
+    h: Alt+Ctrl
+    s: '>'
+  l:
+  - Combos
+- p:
+  - 16
+  - 17
+  k: <
+  l:
+  - Combos
+  hidden: true
+- p:
+  - 17
+  - 18
+  k: '>'
+  l:
+  - Combos
+  hidden: true
+- p:
+  - 26
+  - 27
+  k:
+    t: '['
+    s: '{'
+  l:
+  - Combos
+- p:
+  - 27
+  - 28
+  k:
+    t: ']'
+    s: '}'
+  l:
+  - Combos
+- p:
+  - 26
+  - 27
+  k: '{'
+  l:
+  - Combos
+  hidden: true
+- p:
+  - 27
+  - 28
+  k: '}'
+  l:
+  - Combos
+  hidden: true
+- p:
+  - 1
+  - 11
+  k: '@'
+  l:
+  - Combos
+- p:
+  - 2
+  - 12
+  k: '#'
+  l:
+  - Combos
+- p:
+  - 3
+  - 13
+  k: $
+  l:
+  - Combos
+- p:
+  - 4
+  - 14
+  k: '%'
+  l:
+  - Combos
+- p:
+  - 11
+  - 21
+  k: '`'
+  l:
+  - Combos
+- p:
+  - 12
+  - 22
+  k: \
+  l:
+  - Combos
+- p:
+  - 13
+  - 23
+  k: '='
+  l:
+  - Combos
+- p:
+  - 14
+  - 24
+  k: '~'
+  l:
+  - Combos
+- p:
+  - 5
+  - 15
+  k: ^
+  l:
+  - Combos
+- p:
+  - 6
+  - 16
+  k: +
+  l:
+  - Combos
+- p:
+  - 7
+  - 17
+  k: '*'
+  l:
+  - Combos
+- p:
+  - 8
+  - 18
+  k: '&'
+  l:
+  - Combos
+- p:
+  - 15
+  - 25
+  k: _
+  l:
+  - Combos
+- p:
+  - 16
+  - 26
+  k: '-'
+  l:
+  - Combos
+- p:
+  - 17
+  - 27
+  k: /
+  l:
+  - Combos
+- p:
+  - 18
+  - 28
+  k: '|'
+  l:
+  - Combos
