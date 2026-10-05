@@ -1,12 +1,8 @@
-# This file generates the GitHub Actions matrix.
+# GitHub Actions build matrix (see https://zmk.dev/docs/user-setup).
 #
-# Each entry builds one firmware file. Optional fields:
-#   keymap:     name of a .keymap file in config/ (without extension) to use
-#               instead of the default <shield>.keymap
-#   cmake-args: extra arguments passed to cmake
-#
-# The default keymap is config/cradio.keymap (-> base.keymap).
-# The "alt" variant is config/cradio_alt.keymap (-> alt.keymap).
+# Each entry builds one firmware file. The default keymap is
+# config/cradio.keymap (-> base.keymap); other variants are selected with
+# KEYMAP_FILE and get their own artifact-name.
 ---
 include:
   # default keymap
@@ -15,10 +11,12 @@ include:
   - board: nice_nano_v2
     shield: cradio_right
 
-  # alternate keymap variant
+  # alt keymap variant (config/cradio_alt.keymap -> alt.keymap)
   - board: nice_nano_v2
     shield: cradio_left
-    keymap: cradio_alt
+    cmake-args: -DKEYMAP_FILE=${GITHUB_WORKSPACE}/config/cradio_alt.keymap
+    artifact-name: cradio_left-nice_nano_v2-cradio_alt-zmk
   - board: nice_nano_v2
     shield: cradio_right
-    keymap: cradio_alt
+    cmake-args: -DKEYMAP_FILE=${GITHUB_WORKSPACE}/config/cradio_alt.keymap
+    artifact-name: cradio_right-nice_nano_v2-cradio_alt-zmk

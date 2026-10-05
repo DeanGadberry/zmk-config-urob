@@ -1,4 +1,5 @@
 #include <behaviors.dtsi>
+#include <behaviors/num_word.dtsi>  // requires zmk-auto-layer module
 #include <dt-bindings/zmk/keys.h>
 #if CONFIG_WIRELESS
     #include <dt-bindings/zmk/bt.h>
@@ -7,8 +8,7 @@
     #define _BT_SEL_KEYS_ &trans &trans &trans &trans &trans
 #endif
 
-#include "../zmk-nodefree-config/helper.h"
-#include "../zmk-nodefree-config/international_chars/german.dtsi"
+#include <zmk-helpers/helper.h>  // requires zmk-helpers module
 
 #define DEF 0
 #define NAV 1
@@ -102,9 +102,6 @@ ZMK_BEHAVIOR(smart_shft, mod_morph,
     bindings = <&sk LSHFT>, <&caps_word>;
     mods = <(MOD_LSFT)>;
 )
-&caps_word {  // mods deactivate caps-word, requires PR #1451
-    /delete-property/ ignore-modifiers;
-};
 
 // tap: num-word | double-tap: sticky num-layer | hold: num-layer
 #define SMART_NUM &smart_num NUM 0
@@ -116,17 +113,16 @@ ZMK_BEHAVIOR(smart_num, hold_tap,
 )
 ZMK_BEHAVIOR(num_dance, tap_dance,
     tapping-term-ms = <200>;
-    bindings = <&num_word>, <&sl NUM>;  // reverse this for sticky-num on single tap
+    bindings = <&num_word NUM>, <&sl NUM>;  // reverse this for sticky-num on single tap
 )
-&num_word {  // num-word, requires PR #1451
-    layers = <NUM>;
+&num_word {  // requires zmk-auto-layer module
     continue-list = <BSPC DEL DOT COMMA PLUS MINUS STAR FSLH EQUAL KP_N0 KP_N1 KP_N2 KP_N3 KP_N4 KP_N5 KP_N6 KP_N7 KP_N8 KP_N9>;
 };
 
 
 /* Custom behaviors */
 
-// Alt+Tab swapper, requires PR #1366
+// Alt+Tab swapper, requires zmk-tri-state module
 ZMK_BEHAVIOR(swapper, tri_state,
     bindings = <&kt LALT>, <&kp TAB>, <&kt LALT>;
     ignored-key-positions = <LT2>;
@@ -199,7 +195,7 @@ ZMK_BEHAVIOR(win_sleep, macro,
 
 /* Keymap */
 
-ZMK_CONDITIONAL_LAYER(FN NUM, SYS)  // hold FN + tap NUM --> gives one key press on SYS (this worked after gemini suggested)
+ZMK_CONDITIONAL_LAYER(sys, FN NUM, SYS)  // hold FN + tap NUM --> gives one key press on SYS (this worked after gemini suggested)
                                     // NUM + FN --> SYS (because FN + NUM --> MUTE) (this note is old and IDK why the above worked today)
 
 ZMK_LAYER(base,

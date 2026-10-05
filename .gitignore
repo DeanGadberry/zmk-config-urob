@@ -1,0 +1,6 @@
+# west workspace / module checkouts
+/modules/
+/zmk/
+/zephyr/
+/.west/
+/build/

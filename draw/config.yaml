@@ -4,6 +4,10 @@
 # Styling adapted from urob/zmk-config's draw/config.yaml.
 
 parse_config:
+  # Headers from the ZMK modules in config/west.yml (fetched by scripts/draw.sh).
+  zmk_additional_includes:
+    - modules/zmk/helpers/include
+    - modules/zmk/auto-layer/dts
   trans_legend: { t: "▽", type: trans }
 
   # Exact binding text -> label (checked before keycode mapping).
