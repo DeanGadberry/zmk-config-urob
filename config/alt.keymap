@@ -1,3 +1,15 @@
+/*
+ * Alternate keymap variant ("alt").
+ *
+ * Starts as a copy of base.keymap so it builds out of the box. Edit freely:
+ * layers, behaviors and combos here are independent of the main keymap.
+ * Combos are still shared via combos.dtsi -- copy it to e.g. combos_alt.dtsi
+ * and change the include below if this variant needs different combos.
+ *
+ * Built as separate firmware: see the `keymap: cradio_alt` entries in
+ * build.yaml (artifacts are named cradio_*-nice_nano_v2-cradio_alt-zmk.uf2).
+ */
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #if CONFIG_WIRELESS

@@ -1,0 +1,13 @@
+/* Alternate keymap variant for the Cradio -- selected via `keymap: cradio_alt` in build.yaml */
+
+/* source keypos definitions */
+#include "../zmk-nodefree-config/keypos_def/keypos_34keys.h"
+
+/* activate bluetooth */
+#define CONFIG_WIRELESS 1
+
+/* set default OS to Linux for international character usage */
+#define HOST_OS 1
+
+/* source the variant keymap */
+#include "alt.keymap"

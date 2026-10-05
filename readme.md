@@ -24,13 +24,26 @@ compatible with Zephyr 3.0 is available
 - more intuitive shift-actions: <kbd>, ;</kbd>, <kbd>. :</kbd> and <kbd>? !</kbd>
 - <kbd>shift</kbd> + <kbd>space</kbd> morphs into <kbd>dot</kbd> →
   <kbd>space</kbd> → <kbd>sticky-shift</kbd>
-- "Greek" layer for mathematical typesetting (activated as sticky-layer via a combo)
 - modified Github Actions workflow that recognizes git-submodules
 - automated
   [build-scripts](https://github.com/urob/zmk-config/tree/main/scripts#readme)
   for local and Docker-based building (independently of VS Code)
 
 ![](img/dean_keymap.png)
+
+## Keymap variants
+
+The Cradio is built with two independent keymaps, each as its own firmware:
+
+| Variant | Entry file | Keymap | Firmware files |
+| --- | --- | --- | --- |
+| default | `config/cradio.keymap` | `config/base.keymap` | `cradio_{left,right}-nice_nano_v2-zmk.uf2` |
+| alt | `config/cradio_alt.keymap` | `config/alt.keymap` | `cradio_{left,right}-nice_nano_v2-cradio_alt-zmk.uf2` |
+
+Both variants share `cradio.conf` and (for now) `combos.dtsi`. To add another
+variant, copy `cradio_alt.keymap` + `alt.keymap` under a new name and add
+matching entries with `keymap: <name>` to `build.yaml`. All firmware files end
+up in the single `firmware` artifact of the GitHub Actions run.
 
 ## Timeless homerow mods
 
@@ -182,9 +195,6 @@ locations while also making them easy to remember. Specifically:
   `>`, `{` and `}` being accessed from the Navigation layer
 - left-hand side combos for `tap`, `esc`, `enter`, `cut` (on <kbd>X</kbd> + <kbd>D</kbd>),
   `copy` and `paste` that go well with right-handed mouse usage
-- <kbd>L</kbd> + <kbd>Y</kbd> switches to the Greek layer for a single key
-  press, <kbd>L</kbd> + <kbd>U</kbd> + <kbd>Y</kbd> activates one-shot shift in
-  addition
 - <kbd>W</kbd> + <kbd>P</kbd> activates the smart mouse layer
 
 ## Smart layers and other gimmicks

@@ -7,7 +7,7 @@ manifest:
   projects:
     - name: zmk
       remote: urob
-      revision: main
+      revision: main-3.2  # Zephyr 3.2 branch this keymap targets (matches the zmk-build-arm:3.2 image in build.yml)
       import: app/west.yml
   self:
     path: config
