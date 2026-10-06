@@ -33,10 +33,18 @@ compatible with Zephyr 3.0 is available
 The keymap images in [`draw/`](draw/) are generated with
 [keymap-drawer](https://github.com/caksoylar/keymap-drawer) by the "Draw
 keymaps" GitHub Action whenever a keymap changes, so they always match the
-firmware: [`cradio.svg`](draw/cradio.svg) (default) and
-[`cradio_alt.svg`](draw/cradio_alt.svg) (alt variant). To redraw locally, run
+firmware. Each keymap has a one-page overview, where the corners of every key
+show its Fn (top left), Nav (top right), Num (bottom left) and Sys (bottom
+right) bindings, plus an image with every layer drawn separately:
+
+| | Overview | All layers |
+| --- | --- | --- |
+| primary | [`cradio.svg`](draw/cradio.svg) | [`cradio_layers.svg`](draw/cradio_layers.svg) |
+| legacy | [`cradio_legacy.svg`](draw/cradio_legacy.svg) | [`cradio_legacy_layers.svg`](draw/cradio_legacy_layers.svg) |
+ To redraw locally, run
 `scripts/draw.sh` (needs Python 3.12+ and `pip install keymap-drawer==0.23.0`).
-Labels and styling live in [`draw/config.yaml`](draw/config.yaml).
+Labels and styling live in [`draw/config.yaml`](draw/config.yaml), key
+positions in [`draw/cradio_layout.json`](draw/cradio_layout.json).
 
 ## Keymap variants
 
@@ -44,11 +52,13 @@ The Cradio is built with two independent keymaps, each as its own firmware:
 
 | Variant | Entry file | Keymap | Firmware files |
 | --- | --- | --- | --- |
-| default | `config/cradio.keymap` | `config/base.keymap` | `cradio_{left,right}-nice_nano_v2-zmk.uf2` |
-| alt | `config/cradio_alt.keymap` | `config/alt.keymap` | `cradio_{left,right}-nice_nano_v2-cradio_alt-zmk.uf2` |
+| primary | `config/cradio.keymap` | `config/base.keymap` + `combos.dtsi` | `cradio_{left,right}-nice_nano_v2-zmk.uf2` |
+| legacy | `config/cradio_legacy.keymap` | `config/legacy.keymap` + `combos_legacy.dtsi` | `cradio_{left,right}-nice_nano_v2-cradio_legacy-zmk.uf2` |
 
-Both variants share `cradio.conf` and (for now) `combos.dtsi`. To add another
-variant, copy `cradio_alt.keymap` + `alt.keymap` under a new name and add
+The primary keymap has a 10-key numpad under the right hand; the legacy keymap
+is the earlier layout with the numpad on the left hand. Both share
+`cradio.conf`. To add another variant, copy `cradio_legacy.keymap` +
+`legacy.keymap` under a new name and add
 matching entries to `build.yaml` with
 `cmake-args: -DKEYMAP_FILE=${GITHUB_WORKSPACE}/config/<name>.keymap` and an
 `artifact-name`. All firmware files end up in the single `firmware` artifact of

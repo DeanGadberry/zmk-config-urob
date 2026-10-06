@@ -1,0 +1,10 @@
+/* Legacy keymap for the Cradio -- selected via KEYMAP_FILE in build.yaml */
+
+/* source keypos definitions */
+#include <zmk-helpers/key-labels/34.h>
+
+/* activate bluetooth */
+#define CONFIG_WIRELESS 1
+
+/* source the legacy keymap */
+#include "legacy.keymap"

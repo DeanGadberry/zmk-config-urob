@@ -4,6 +4,6 @@
 /* activate bluetooth */
 #define CONFIG_WIRELESS 1
 
-/* source the main keymap */
+/* source the primary keymap */
 #include "base.keymap"
 

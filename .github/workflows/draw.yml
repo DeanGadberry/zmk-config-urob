@@ -9,6 +9,8 @@ on:
       - "config/*.dtsi"
       - "config/*.h"
       - "draw/config.yaml"
+      - "draw/cradio_layout.json"
+      - "scripts/draw_overview.py"
       - "scripts/draw.sh"
       - "config/west.yml"
       - ".github/workflows/draw.yml"

@@ -3,13 +3,14 @@
 #
 # Requires keymap-drawer (Python >= 3.12):  pip install keymap-drawer==0.23.0
 #
-# Draws every config/cradio*.keymap, i.e. one image per firmware variant:
-# draw/cradio.svg, draw/cradio_alt.svg, ...
+# Draws every config/cradio*.keymap, i.e. one set of images per firmware
+# variant: draw/<name>.svg (one-page overview, other layers shown in the key
+# corners) and draw/<name>_layers.svg (every layer separately).
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cfg="$root/draw/config.yaml"
-keyboard="cradio"  # physical layout for every variant (keymap-drawer ZMK shield name)
+layout="draw/cradio_layout.json"  # key positions (Cradio/Sweep with straight thumbs)
 
 # The keymaps include headers from ZMK modules. Reuse a west checkout if there
 # is one (modules/zmk/*), otherwise fetch the revision pinned in config/west.yml.
@@ -25,14 +26,23 @@ cd "$root"  # zmk_additional_includes in draw/config.yaml are relative to here
 for keymap in config/cradio*.keymap; do
     name="$(basename "$keymap" .keymap)"
     echo "Drawing $name..."
-    # Draw combos on their own "Combos" diagram instead of on every layer;
-    # combos that exist on a single layer only are drawn on that layer.
+    # Parse; combos go on their own "Combos" diagram instead of on every
+    # layer, except combos that exist on a single layer only.
     keymap -c "$cfg" parse -z "$keymap" --virtual-layers Combos |
         python3 -c 'import sys, yaml
 km = yaml.safe_load(sys.stdin)
+km["layout"] = {"qmk_info_json": sys.argv[1]}
 for combo in km.get("combos", []):
     if len(combo.get("l", [])) != 1:
         combo["l"] = ["Combos"]
-yaml.safe_dump(km, sys.stdout, allow_unicode=True, sort_keys=False)' >"draw/$name.yaml"
-    keymap -c "$cfg" draw -z "$keyboard" "draw/$name.yaml" >"draw/$name.svg"
+yaml.safe_dump(km, sys.stdout, allow_unicode=True, sort_keys=False)' "$layout" >"draw/$name.yaml"
+
+    # Every layer, one diagram each.
+    keymap -c "$cfg" draw "draw/$name.yaml" >"draw/${name}_layers.svg"
+
+    # One-page overview: other layers in the key corners, plus combos.
+    python3 scripts/draw_overview.py "draw/$name.yaml" >"draw/${name}_overview.yaml"
+    keymap -c "$cfg" draw "draw/${name}_overview.yaml" >"draw/$name.svg"
+    rm "draw/${name}_overview.yaml"
+    sed -i '/<text.*class="label"/d' "draw/$name.svg"  # no layer titles, like the original
 done

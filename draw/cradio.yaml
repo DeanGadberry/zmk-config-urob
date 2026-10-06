@@ -1,5 +1,5 @@
 layout:
-  zmk_keyboard: cradio
+  qmk_info_json: draw/cradio_layout.json
 layers:
   base:
   - Q
@@ -44,31 +44,24 @@ layers:
   - t: '?'
     s: '!'
   - t: Enter
-    h: nav
+    h: Nav
   - t: Spc
     h: Fn
-    s: . Spc ⇧
-  - t: Smart Num
-    h: Num
-  - t: Shift
-    s: Caps Word
+  - Smart-num
+  - Smart-shift
   nav:
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - type: trans
+  - type: trans
   - PWin
   - NWin
-  - t: ▽
-    type: trans
+  - type: trans
   - t: Bspc
     h: Ctl+Bspc
   - PgDn
   - PgUp
   - t: Del
     h: Ctl+Del
-  - t: ▽
-    type: trans
+  - type: trans
   - t: Gui
     h: sticky
   - t: Alt
@@ -77,51 +70,40 @@ layers:
     h: sticky
   - t: Shift
     h: sticky
-  - t: ▽
-    type: trans
-  - t: ←
+  - type: trans
+  - t: ◁
     h: Home
-  - t: ↓
+  - t: ▽
     h: Ctl+End
-  - t: ↑
+  - t: △
     h: Ctl+Home
-  - t: →
+  - t: ▷
     h: End
   - Enter
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
   - Ins
   - Tab
   - <
   - '>'
-  - t: ▽
-    type: trans
-  - type: held
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - Cancel
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - Exit
   fn:
   - F12
   - F7
   - F8
   - F9
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - Prev
-  - Vol +
-  - Next
+  - type: trans
+  - type: trans
+  - $$mdi:skip-backward$$
+  - $$mdi:volume-high$$
+  - $$mdi:skip-forward$$
   - Sleep
   - t: F11
     h: Gui
@@ -131,160 +113,99 @@ layers:
     h: Ctrl
   - t: F6
     h: Shift
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - type: trans
+  - type: trans
   - t: PDesk
     h: Shift
-  - t: Vol −
+  - t: $$mdi:volume-medium$$
     h: Ctrl
   - t: NDesk
     h: Alt
-  - t: ▽
-    type: trans
+  - type: trans
   - F10
   - F1
   - F2
   - F3
-  - t: ▽
-    type: trans
-  - PinApp
-  - PinWin
-  - Desktops
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - Mute
-  - Play/Pause
+  - type: trans
+  - PinA
+  - PinW
+  - Dsk
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - $$mdi:volume-off$$
+  - $$mdi:play-pause$$
   num:
-  - t: ▽
-    type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - /
   - '7'
   - '8'
   - '9'
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: '0'
-    h: Gui
-  - t: '4'
-    h: Alt
-  - t: '5'
-    h: Ctrl
-  - t: '6'
-    h: Shift
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - '-'
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - '*'
+  - '4'
+  - '5'
+  - '6'
+  - +
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - Exit
   - '1'
   - '2'
   - '3'
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - Enter
+  - type: trans
+  - type: trans
+  - '0'
+  - .
   sys:
   - BT 1
   - BT 2
   - BT 3
   - BT 4
   - BT Clear
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
   - Boot
   - Boot
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
   - Reset
   - Reset
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
-  - t: ▽
-    type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
+  - type: trans
   game:
   - Esc
   - Q
@@ -406,15 +327,13 @@ combos:
 - p:
   - 11
   - 12
-  k:
-    t: Tab
-    h: Alt+Ctrl
+  k: Tab
   l:
   - Combos
 - p:
   - 12
   - 13
-  k: Caps
+  k: Caps Lock
   l:
   - Combos
 - p:
@@ -450,21 +369,15 @@ combos:
 - p:
   - 16
   - 17
-  k:
-    t: (
-    h: Shift+Ctrl
-    s: <
+  k: ( <
   l:
-  - Combos
+  - base
 - p:
   - 17
   - 18
-  k:
-    t: )
-    h: Alt+Ctrl
-    s: '>'
+  k: ) >
   l:
-  - Combos
+  - base
 - p:
   - 16
   - 17
@@ -482,19 +395,15 @@ combos:
 - p:
   - 26
   - 27
-  k:
-    t: '['
-    s: '{'
+  k: '[ {'
   l:
-  - Combos
+  - base
 - p:
   - 27
   - 28
-  k:
-    t: ']'
-    s: '}'
+  k: '] }'
   l:
-  - Combos
+  - base
 - p:
   - 26
   - 27
@@ -605,3 +514,9 @@ combos:
   k: '|'
   l:
   - Combos
+- p:
+  - 9
+  - 19
+  k: '='
+  l:
+  - num
