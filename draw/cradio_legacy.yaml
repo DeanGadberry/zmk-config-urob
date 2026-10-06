@@ -373,13 +373,13 @@ combos:
 - p:
   - 16
   - 17
-  k: ( <
+  k: (  <
   l:
   - Combos
 - p:
   - 17
   - 18
-  k: ) >
+  k: )  >
   l:
   - Combos
 - p:
@@ -399,13 +399,13 @@ combos:
 - p:
   - 26
   - 27
-  k: '[ {'
+  k: '[  {'
   l:
   - Combos
 - p:
   - 27
   - 28
-  k: '] }'
+  k: ']  }'
   l:
   - Combos
 - p:

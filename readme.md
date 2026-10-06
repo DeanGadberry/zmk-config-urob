@@ -30,21 +30,30 @@ compatible with Zephyr 3.0 is available
 
 ![Keymap](draw/cradio.svg)
 
-The keymap images in [`draw/`](draw/) are generated with
+**Reading the keymap image:** the big legend is the base-layer key, with its
+hold action (e.g. `Ctrl`, `Nav`) underneath. The small corner legends show what
+the same key does on the other layers:
+
+| Corner | Layer | Color |
+| --- | --- | --- |
+| top left | Fn (hold `Spc`) | teal |
+| top right | Nav (hold `Enter`) | yellow |
+| bottom left | Num (`Smart-num`) | orange |
+| bottom right | Sys (Fn + Num) | green |
+
+The lower diagram shows the combos (press the keys underneath together). An
+orange combo only exists on the Num layer, e.g. `=` from `-` + `+`.
+
+The images are generated with
 [keymap-drawer](https://github.com/caksoylar/keymap-drawer) by the "Draw
 keymaps" GitHub Action whenever a keymap changes, so they always match the
-firmware. Each keymap has a one-page overview, where the corners of every key
-show its Fn (top left), Nav (top right), Num (bottom left) and Sys (bottom
-right) bindings, plus an image with every layer drawn separately:
-
-| | Overview | All layers |
-| --- | --- | --- |
-| primary | [`cradio.svg`](draw/cradio.svg) | [`cradio_layers.svg`](draw/cradio_layers.svg) |
-| legacy | [`cradio_legacy.svg`](draw/cradio_legacy.svg) | [`cradio_legacy_layers.svg`](draw/cradio_legacy_layers.svg) |
- To redraw locally, run
-`scripts/draw.sh` (needs Python 3.12+ and `pip install keymap-drawer==0.23.0`).
-Labels and styling live in [`draw/config.yaml`](draw/config.yaml), key
-positions in [`draw/cradio_layout.json`](draw/cradio_layout.json).
+firmware: [`cradio.svg`](draw/cradio.svg) (primary, shown above) and
+[`cradio_legacy.svg`](draw/cradio_legacy.svg) (legacy). Every layer is also
+listed as text in `draw/cradio.yaml` and `draw/cradio_legacy.yaml`. To redraw
+locally, run `scripts/draw.sh` (needs Python 3.12+ and
+`pip install keymap-drawer==0.23.0`). Labels and styling live in
+[`draw/config.yaml`](draw/config.yaml), key positions in
+[`draw/cradio_layout.json`](draw/cradio_layout.json).
 
 ## Keymap variants
 

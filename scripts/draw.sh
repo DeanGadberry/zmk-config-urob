@@ -3,9 +3,9 @@
 #
 # Requires keymap-drawer (Python >= 3.12):  pip install keymap-drawer==0.23.0
 #
-# Draws every config/cradio*.keymap, i.e. one set of images per firmware
-# variant: draw/<name>.svg (one-page overview, other layers shown in the key
-# corners) and draw/<name>_layers.svg (every layer separately).
+# Draws every config/cradio*.keymap, i.e. one image per firmware variant:
+# draw/<name>.svg, a one-page overview in which the corners of every key show
+# its other layers, plus a combos diagram.
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -27,7 +27,7 @@ for keymap in config/cradio*.keymap; do
     name="$(basename "$keymap" .keymap)"
     echo "Drawing $name..."
     # Parse; combos go on their own "Combos" diagram instead of on every
-    # layer, except combos that exist on a single layer only.
+    # layer (draw_overview.py handles combos that exist on a single layer).
     keymap -c "$cfg" parse -z "$keymap" --virtual-layers Combos |
         python3 -c 'import sys, yaml
 km = yaml.safe_load(sys.stdin)
@@ -37,10 +37,8 @@ for combo in km.get("combos", []):
         combo["l"] = ["Combos"]
 yaml.safe_dump(km, sys.stdout, allow_unicode=True, sort_keys=False)' "$layout" >"draw/$name.yaml"
 
-    # Every layer, one diagram each.
-    keymap -c "$cfg" draw "draw/$name.yaml" >"draw/${name}_layers.svg"
-
     # One-page overview: other layers in the key corners, plus combos.
+    # The parsed draw/<name>.yaml stays as a text version of every layer.
     python3 scripts/draw_overview.py "draw/$name.yaml" >"draw/${name}_overview.yaml"
     keymap -c "$cfg" draw "draw/${name}_overview.yaml" >"draw/$name.svg"
     rm "draw/${name}_overview.yaml"

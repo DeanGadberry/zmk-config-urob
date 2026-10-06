@@ -45,15 +45,16 @@ parse_config:
 
   # Nav-layer combos share keys with ( ) [ ]; their labels are set on those
   # combos below instead of drawing them twice.
+  # (Two spaces keep a label on one line.)
   zmk_combos:
     combo_lt: { hidden: true }
     combo_gt: { hidden: true }
     combo_lbrc: { hidden: true }
     combo_rbrc: { hidden: true }
-    combo_lpar: { key: { t: "( <" } }
-    combo_rpar: { key: { t: ") >" } }
-    combo_lbkt: { key: { t: "[ {" } }
-    combo_rbkt: { key: { t: "] }" } }
+    combo_lpar: { key: { t: "(  <" } }
+    combo_rpar: { key: { t: ")  >" } }
+    combo_lbkt: { key: { t: "[  {" } }
+    combo_rbkt: { key: { t: "]  }" } }
 
   zmk_keycode_map:
     LALT: Alt
@@ -200,6 +201,12 @@ draw_config:
     text.tr, use.tr { fill: var(--color-nav); }
     text.bl, use.bl { fill: var(--color-num); }
     text.br, use.br { fill: var(--color-sys); }
+
+    /* combos that exist on one layer only, colored like that layer */
+    rect.combo.num { fill: var(--color-num); }
+    rect.combo.nav { fill: var(--color-nav); }
+    rect.combo.fn  { fill: var(--color-fn); }
+    rect.combo.num + text, rect.combo.nav + text, rect.combo.fn + text { fill: var(--color-key); }
 
     .keypos-30 text.hold { fill: var(--color-nav); }
     .keypos-31 text.hold { fill: var(--color-fn); }
