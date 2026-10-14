@@ -72,5 +72,5 @@ ZMK_COMBO(fslh,  &kp FSLH,      RM2 RB2,     DEF NAV    , COMBO_TERM_SLOW, COMBO
 ZMK_COMBO(pipe,  &kp PIPE,      RM3 RB3,     DEF NAV    , COMBO_TERM_SLOW, COMBO_IDLE)
 
 /* Num layer (10-key) */
-// "-" + "+" (outer column) -> "=". No require-prior-idle so it works right after a digit.
-ZMK_COMBO(num_eq, &kp EQUAL,    RT4 RM4,     NUM,         COMBO_TERM_SLOW)
+// "/" + "*" (inner column) -> "=". No require-prior-idle so it works right after a digit.
+ZMK_COMBO(num_eq, &kp EQUAL,    RT0 RM0,     NUM,         COMBO_TERM_SLOW)

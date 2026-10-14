@@ -47,6 +47,8 @@ parse_config:
   # combos below instead of drawing them twice.
   # (Two spaces keep a label on one line.)
   zmk_combos:
+    # "=" (num layer) sits on the same keys as "^"; draw it beside them.
+    combo_num_eq: { align: left, o: 0.35 }
     combo_lt: { hidden: true }
     combo_gt: { hidden: true }
     combo_lbrc: { hidden: true }

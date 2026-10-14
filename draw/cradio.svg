@@ -547,8 +547,10 @@ text.footer { font-size: 12px; }
 <text x="600" y="141" class="combo tap">|</text>
 </g>
 <g class="combo num combopos-29">
-<rect rx="6" ry="6" x="646" y="104" width="28" height="26" class="combo num"/>
-<text x="660" y="117" class="combo num tap">=</text>
+<path d="M368,87 v-24 a6.0,6.0 0 0 1 6.0,-6.0 h26" class="combo"/>
+<path d="M368,87 v24 a6.0,6.0 0 0 0 6.0,6.0 h26" class="combo"/>
+<rect rx="6" ry="6" x="354" y="74" width="28" height="26" class="combo num"/>
+<text x="368" y="87" class="combo num tap">=</text>
 </g>
 </g>
 </g>

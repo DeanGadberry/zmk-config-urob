@@ -42,7 +42,7 @@ the same key does on the other layers:
 | bottom right | Sys (Fn + Num) | green |
 
 The lower diagram shows the combos (press the keys underneath together). An
-orange combo only exists on the Num layer, e.g. `=` from `-` + `+`.
+orange combo only exists on the Num layer, e.g. `=` from `/` + `*`.
 
 The images are generated with
 [keymap-drawer](https://github.com/caksoylar/keymap-drawer) by the "Draw
