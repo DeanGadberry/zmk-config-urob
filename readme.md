@@ -1,97 +1,134 @@
-# urob's zmk-config
+# Dean's Cradio keymap
 
-This is Urob's personal [ZMK firmware](https://github.com/zmkfirmware/zmk/) configuration.
-It consists of a 34-keys base layout that is re-used for various boards, including my
-Corneish Zen and my Planck.
-
-This branch is updated for the latest ZMK using Zephyr 3.2. A legacy version
-compatible with Zephyr 3.0 is available
-[here](https://github.com/urob/zmk-config/tree/main-zephyr-3.0).
-
-## Highlights
-
-- clean keymap setup using helper macros from
-  [zmk-helpers](https://github.com/urob/zmk-helpers)
-- the base keymap and combo setup are independent of the physical location of
-  keys and are re-used for multiple keyboards. The configuration is fit onto
-  larger boards by padding it via a modular structure of "extra keys"
-- ["timer-less" homerow mods](#timeless-homerow-mods) 
-- combos replacing the symbol layer
-- smart numbers and smart mouse layers that automatically toggle off when done
-- sticky shift on right thumb, double-tap (or shift + tap)[^1] activates caps-word
-- arrow-cluster doubles as <kbd>home</kbd>, <kbd>end</kbd>, <kbd>begin/end of
-  document</kbd> on long-press
-- more intuitive shift-actions: <kbd>, ;</kbd>, <kbd>. :</kbd> and <kbd>? !</kbd>
-- <kbd>shift</kbd> + <kbd>space</kbd> morphs into <kbd>dot</kbd> →
-  <kbd>space</kbd> → <kbd>sticky-shift</kbd>
-- automated
-  [build-scripts](https://github.com/urob/zmk-config/tree/main/scripts#readme)
-  for local and Docker-based building (independently of VS Code)
+My [ZMK](https://zmk.dev) firmware configuration for a **Cradio** (34-key split
+keyboard, Ferris Sweep layout) with **nice!nano v2** controllers, used over
+Bluetooth. It started in January 2024 as a fork of
+[urob's zmk-config](https://github.com/urob/zmk-config) and has since been
+reshaped around my own layout: QWERTY with home-row mods, symbol combos, and a
+10-key numpad under the right hand.
 
 ![Keymap](draw/cradio.svg)
 
-**Reading the keymap image:** the big legend is the base-layer key, with its
-hold action (e.g. `Ctrl`, `Nav`) underneath. The small corner legends show what
-the same key does on the other layers:
+## Reading the keymap image
 
-| Corner | Layer | Color |
-| --- | --- | --- |
-| top left | Fn (hold `Spc`) | teal |
-| top right | Nav (hold `Enter`) | yellow |
-| bottom left | Num (`Smart-num`) | orange |
-| bottom right | Sys (Fn + Num) | green |
+The big legend on each key is what it types on the base layer; the small text
+underneath is its hold action (e.g. `Ctrl`, `Nav`). The corners show what the
+same key does on the other layers:
 
-The lower diagram shows the combos (press the keys underneath together). An
-orange combo only exists on the Num layer, e.g. Backspace from `7` + `8`.
-
-The images are generated with
-[keymap-drawer](https://github.com/caksoylar/keymap-drawer) by the "Draw
-keymaps" GitHub Action whenever a keymap changes, so they always match the
-firmware: [`cradio.svg`](draw/cradio.svg) (primary, shown above) and
-[`cradio_legacy.svg`](draw/cradio_legacy.svg) (legacy).
-
-**Printable version:** [`cradio-print.pdf`](draw/cradio-print.pdf) (primary) and
-[`cradio_legacy-print.pdf`](draw/cradio_legacy-print.pdf) (legacy) are black and
-white on letter paper, best printed double-sided: page 1 is the overview with
-plain grey corners and a keycap legend; page 2 draws every layer separately,
-with the key you hold to reach each layer greyed out. Every layer is also
-listed as text in `draw/cradio.yaml` and `draw/cradio_legacy.yaml`. To redraw
-locally, run `scripts/draw.sh` (needs Python 3.12+ and
-`pip install keymap-drawer==0.23.0`; the PDFs also need Chrome or Chromium). Labels and styling live in
-[`draw/config.yaml`](draw/config.yaml), key positions in
-[`draw/cradio_layout.json`](draw/cradio_layout.json).
-
-## Keymap variants
-
-The Cradio is built with two independent keymaps, each as its own firmware:
-
-| Variant | Entry file | Keymap | Firmware files |
+| Corner | Layer | How to reach it | Color |
 | --- | --- | --- | --- |
-| primary | `config/cradio.keymap` | `config/base.keymap` + `combos.dtsi` | `cradio_{left,right}-nice_nano_v2-zmk.uf2` |
-| legacy | `config/cradio_legacy.keymap` | `config/legacy.keymap` + `combos_legacy.dtsi` | `cradio_{left,right}-nice_nano_v2-cradio_legacy-zmk.uf2` |
+| top left | Fn | hold `Spc` | teal |
+| top right | Nav | hold `Enter` | yellow |
+| bottom left | Num | `Smart-num` (tap or hold) | orange |
+| bottom right | Sys | hold `Smart-num`, then also `Spc` | green |
 
-The primary keymap has a 10-key numpad under the right hand; the legacy keymap
-is the earlier layout with the numpad on the left hand. Both share
-`cradio.conf`. To add another variant, copy `cradio_legacy.keymap` +
-`legacy.keymap` under a new name and add
-matching entries to `build.yaml` with
-`cmake-args: -DKEYMAP_FILE=${GITHUB_WORKSPACE}/config/<name>.keymap` and an
-`artifact-name`. All firmware files end up in the single `firmware` artifact of
-the GitHub Actions run.
+The lower diagram shows the combos (press the keys underneath at the same
+time). Orange combos only exist on the Num layer.
 
-## Firmware version
+**Printable version:** [`draw/cradio-print.pdf`](draw/cradio-print.pdf) is black
+and white on letter paper, best printed double-sided: page 1 is the overview
+above with a keycap legend, page 2 draws every layer separately with the key you
+hold to reach each layer greyed out.
 
-This config builds with **official ZMK `v0.3`** using ZMK's own GitHub Actions
-workflow. The features that used to need urob's ZMK fork come from urob's
-modules instead, pinned to the same release in `config/west.yml`:
-[zmk-helpers](https://github.com/urob/zmk-helpers) (keymap macros),
-[zmk-auto-layer](https://github.com/urob/zmk-auto-layer) (num-word) and
-[zmk-tri-state](https://github.com/urob/zmk-tri-state) (Alt-Tab swapper).
-The firmware is built with a copy of ZMK's own v0.3 build workflow
-(`.github/workflows/build-user-config.yml`), kept only to use current GitHub
-action versions and pinned runner/container images. To upgrade, change every
-`v0.3` in `config/west.yml` to the next ZMK release and update that workflow
-copy from the same release (the note at its top says what was changed).
+## Two keymaps
+
+The keyboard has two independent keymaps, each built as its own firmware:
+
+| Keymap | Files | Num layer | Firmware |
+| --- | --- | --- | --- |
+| **primary** | `config/base.keymap`, `config/combos.dtsi` | 10-key numpad under the right hand | `cradio_{left,right}-nice_nano_v2-zmk.uf2` |
+| **legacy** | `config/legacy.keymap`, `config/combos_legacy.dtsi` | the earlier layout, numpad under the left hand | `cradio_{left,right}-nice_nano_v2-cradio_legacy-zmk.uf2` |
+
+Everything below describes the primary keymap; the legacy one differs only in
+its Num layer and combos ([`draw/cradio_legacy.svg`](draw/cradio_legacy.svg),
+[`draw/cradio_legacy-print.pdf`](draw/cradio_legacy-print.pdf)).
+
+## Layers
+
+**Base:** QWERTY.
+
+- **Home-row mods:** hold `A` `S` `D` `F` for Gui, Alt, Ctrl, Shift, and `J` `K`
+  `L` `'` for Shift, Ctrl, Alt, Gui.
+- **Thumbs:**
+  - `Enter` (hold: Nav).
+  - `Spc` (hold: Fn). Shift + `Spc` types `.`, a space and a one-shot Shift, to
+    end a sentence.
+  - `Smart-num`: the Num layer, see below.
+  - `Smart-shift`: tap for a one-shot Shift, Shift + tap (or double-tap) for
+    Caps Word.
+- **Shifted punctuation:** Shift turns `,` into `;`, `.` into `:` and `?` into
+  `!`. Ctrl + Shift turns `,` and `.` into `<` and `>`.
+
+**Nav (hold `Enter`):**
+
+- **Arrows:** vim-style on `H` `J` `K` `L`. Holding them gives Home, End and the
+  start/end of the document instead of repeating.
+- **Editing:** Backspace and Delete delete a whole word when held. Also PgUp,
+  PgDn, Ins and Tab.
+- **Left hand:** one-shot Gui, Alt, Ctrl and Shift, and `PWin`/`NWin`, an Alt-Tab
+  window switcher that stays open while you tap.
+- **Thumb:** `Exit` turns off num-word and Caps Word.
+
+**Fn (hold `Spc`):**
+
+- **Function keys:** F1–F12 on the left hand, laid out like a numpad.
+- **Media:** previous/next track, volume, mute, play/pause.
+- **Windows:** previous/next virtual desktop (`PDesk`/`NDesk`), pin an app or
+  window to all desktops (`PinA`/`PinW`), the desktop switcher (`Dsk`), and
+  `Sleep`.
+
+**Num (`Smart-num`, right inner thumb):**
+
+```
+   /   7   8   9   -
+   *   4   5   6   +        7 + 8 together: Backspace
+   =   1   2   3   .
+         [Exit] [ 0 ]       right thumbs
+```
+
+- **Tap `Smart-num` (num-word):** the layer stays on while you type digits,
+  `. , + - * / =`, Enter, Backspace or Delete, and turns off with any other key
+  (that key still types). There is no time limit. Press the `Smart-num` key
+  (`Exit`) to leave without typing anything.
+- **Hold `Smart-num`:** the layer is on only while held.
+- **Double-tap `Smart-num`:** the layer is on for one key.
+- **Enter** stays available from the left thumb. While the numpad is on, the
+  right-hand symbol combos are switched off so they can't misfire.
+
+**Sys (hold `Smart-num`, then also hold `Spc`):** the order matters, because
+holding `Spc` first turns the `Smart-num` key into Mute.
+
+| Key | Action |
+| --- | --- |
+| Q · W · E · R | Bluetooth device 1 · 2 · 3 · 4 (see [known issues](#known-issues)) |
+| T | Bluetooth clear: forget the pairing of the current device |
+| G / H | Bootloader for flashing (left / right half) |
+| B / N | Restart (left / right half) |
+
+## Combos
+
+Press the two keys together. Most of them require a short pause (150 ms) since
+the last key, so they don't misfire while you type words.
+
+| Combo | Result | Combo | Result |
+| --- | --- | --- | --- |
+| `W`+`E` | Esc | `U`+`I` | Backspace |
+| `E`+`R` | Enter | `I`+`O` | Delete |
+| `S`+`D` | Tab | `J`+`K` | `(` (Nav: `<`) |
+| `D`+`F` | Caps Lock | `K`+`L` | `)` (Nav: `>`) |
+| `X`+`C` | Copy | `M`+`,` | `[` (Nav: `{`) |
+| `C`+`V` | Paste | `,`+`.` | `]` (Nav: `}`) |
+| `X`+`V` | Cut | | |
+
+Vertical combos (a key and the one below it) give the number-row symbols:
+
+| Hand | Top + home row | Home + bottom row |
+| --- | --- | --- |
+| left | `W` `@` · `E` `#` · `R` `$` · `T` `%` | `S` `` ` `` · `D` `\` · `F` `=` · `G` `~` |
+| right | `Y` `^` · `U` `+` · `I` `*` · `O` `&` | `H` `_` · `J` `-` · `K` `/` · `L` `\|` |
+
+(Each entry names the upper key of the pair, e.g. `W` `@` means `W` + `S`, and
+`S` `` ` `` means `S` + `X`.)
 
 ## Flashing new firmware
 
@@ -100,23 +137,15 @@ separately over USB.
 
 **1. Download the firmware.** On GitHub go to **Actions → Build ZMK firmware**,
 open the latest run on `main` and download **firmware** at the bottom of the
-page. Unzip it. The primary keymap uses:
-
-| Half | File |
-| --- | --- |
-| left | `cradio_left-nice_nano_v2-zmk.uf2` |
-| right | `cradio_right-nice_nano_v2-zmk.uf2` |
-
-(The legacy keymap uses the `…-cradio_legacy-zmk.uf2` files instead.)
+page. Unzip it. The primary keymap uses `cradio_left-nice_nano_v2-zmk.uf2` and
+`cradio_right-nice_nano_v2-zmk.uf2`.
 
 **2. Plug the left half in with USB and put it in bootloader mode,** either:
 
 - **with the keymap:** hold **Smart-num** first, *then* also hold **Spc**, then
-  tap **G**. The order matters: holding Spc first turns the Smart-num key into
-  Mute. (`G` resets the left half, `H` the right half: each Boot key only
-  affects the half it is on.)
-- **with the reset button:** double-tap it quickly (about half a second apart;
-  a single tap just restarts the keyboard). Without a button, briefly touch the
+  tap **G** (`H` for the right half; each Boot key only affects its own half).
+- **with the reset button:** double-tap it quickly (about half a second apart; a
+  single tap just restarts the keyboard). Without a button, briefly touch the
   nice!nano's **RST** and **GND** pads together twice with tweezers.
 
 **3. Copy the file.** A USB drive named **NICENANO** appears within a few
@@ -125,295 +154,78 @@ PC*; Linux: file manager sidebar or `/media/<user>/NICENANO`). Drag the left
 `.uf2` file onto it. The drive disappears on its own when done; an "ejected
 improperly" warning is normal.
 
-**4. Repeat for the right half** with the right-hand file (`H` instead of `G`).
+**4. Repeat for the right half** with the right-hand file.
 
-**If NICENANO doesn't show up:**
+**If NICENANO doesn't show up:** use a data cable (many are charge-only),
+double-tap faster, plug straight into the computer instead of a hub or dock, and
+make sure the half in bootloader mode is the one plugged in.
 
-- Use a data cable; many USB cables are charge-only.
-- The reset double-tap was too slow; try again faster.
-- Plug straight into the computer instead of a hub or dock.
-- Make sure the half you put in bootloader mode is the one plugged in.
+**If the halves won't connect or Bluetooth misbehaves:** flash
+`settings_reset-nice_nano_v2-zmk.uf2` (also in the download) to both halves,
+which clears stored pairings, then flash the normal firmware again, then remove
+the keyboard from the computer's Bluetooth settings and pair it fresh.
 
-**If the halves won't connect or Bluetooth misbehaves after flashing:** flash
-`settings_reset-nice_nano_v2-zmk.uf2` (also in the firmware download) to both
-halves, which clears stored pairings, then flash
-the normal firmware again, then remove the keyboard from the computer's
-Bluetooth settings and pair it fresh.
+## Changing the keymap
 
-### System keys (Bluetooth, bootloader, reset)
+1. **Edit** `config/base.keymap` (layers and behaviors) or `config/combos.dtsi`
+   (combos), or the legacy files.
+2. **Commit and push to `main`.** Two GitHub Actions run automatically:
+   - **Build ZMK firmware** builds all firmware files into one `firmware`
+     download.
+   - **Draw keymaps** redraws `draw/*.svg` and the printable PDFs and commits
+     them, so the pictures always match the firmware.
+3. **Flash** both halves as described above.
 
-Hold **Smart-num**, then also hold **Spc** (same order as above), then tap:
-
-| Key | Action |
+| Path | What it is |
 | --- | --- |
-| Q · W · E · R | Bluetooth device 1 · 2 · 3 · 4 |
-| T | Bluetooth clear: forget the pairing of the current device |
-| G / H | Bootloader (left / right half) |
-| B / N | Restart (left / right half) |
+| `config/cradio.keymap`, `config/cradio_legacy.keymap` | Entry points: one per firmware variant |
+| `config/base.keymap`, `config/combos.dtsi` | Primary keymap and its combos |
+| `config/legacy.keymap`, `config/combos_legacy.dtsi` | Legacy keymap and its combos |
+| `config/cradio.conf` | Settings shared by both: sleep after 30 min, Bluetooth |
+| `config/west.yml` | ZMK version and modules |
+| `build.yaml` | Which firmware files to build |
+| `.github/workflows/` | The build and drawing Actions |
+| `draw/` | Keymap images, printable PDFs, drawing settings |
+| `scripts/draw.sh` | Redraws the images locally (Python 3.12+, `pip install keymap-drawer==0.23.0`; the PDFs also need Chrome or Chromium) |
 
-## Timeless homerow mods
+**Firmware version:** official ZMK **v0.3**, plus three of urob's modules pinned
+to the same release in `config/west.yml`:
+[zmk-helpers](https://github.com/urob/zmk-helpers) (keymap macros),
+[zmk-auto-layer](https://github.com/urob/zmk-auto-layer) (num-word) and
+[zmk-tri-state](https://github.com/urob/zmk-tri-state) (the Alt-Tab switcher).
+The build uses a copy of ZMK's own v0.3 workflow
+(`.github/workflows/build-user-config.yml`), updated only for current GitHub
+action versions and pinned runner/container images. To upgrade, change every
+`v0.3` in `config/west.yml` to the next ZMK release and refresh that workflow
+copy from the same release (the note at its top lists what was changed).
 
-[Homerow mods](https://precondition.github.io/home-row-mods) (aka "HRMs") can
-be a game changer -- at least in theory. In practice, they require some finicky
-timing: In its most naive implementation, in order to produce a "mod", they
-must be held *longer* than `tapping-term-ms`. In order to produce a "tap", they
-must be held *less* than `tapping-term-ms`. This requires very consistent
-typing speeds that, alas, I do not possess. Hence my quest for a "timer-less"
-HRM setup.[^2]
+To add another keymap variant, copy `cradio_legacy.keymap` and `legacy.keymap`
+under a new name and add matching entries to `build.yaml` with
+`cmake-args: -DKEYMAP_FILE=${GITHUB_WORKSPACE}/config/<name>.keymap` and an
+`artifact-name`.
 
-After months of tweaking, I eventually ended up with a HRM setup that is
-essentially timer-less, resulting in virtually no misfires. Yet it provides a
-fluent typing experience with mostly no delays.
+## Known issues
 
-Let's suppose for a moment we set `tapping-term-ms` to something ridiculously
-large, say 5 seconds. This makes the configuration timer-less of sorts. But it
-has two problems: (1) To activate a mod we will have to hold the HRM keys for
-what feels like eternity. (2) During regular typing, there are delays between
-the press of a key and the time it appears on the screen.[^3] Enter two of
-ZMK's best configuration options:
-* To address the first problem, I use ZMK's `balanced` flavor, which produces a
-  "hold" if another key is both pressed and released within the tapping-term.
-  Because that is exactly what I normally do with HRMs, there is virtually
-  never a need to wait past my long tapping term (see below for two
-  exceptions).
-* To address the typing delay, I use ZMK's `require-prior-idle-ms` property, which
-  immediately resolves a HRM as "tap" when it is pressed shortly *after*
-  another key has been tapped. This all but completely eliminates the delay.
+- **Only Bluetooth devices 1 and 2 work.** `config/cradio.conf` allows 3
+  pairings, and the left half uses one of them for the right half. BT 3 and BT 4
+  do nothing until `CONFIG_BT_MAX_PAIRED` (and `CONFIG_BT_MAX_CONN`) are raised
+  to 5.
+- **Sys layer order:** you have to hold Smart-num *before* Spc; the other way
+  round mutes the audio.
+- **Caps Word no longer turns off when you press a modifier.** That came from
+  urob's old ZMK fork; official ZMK doesn't do it.
+- **The `game` layer can't be reached.** It is defined in both keymaps, but no
+  key switches to it yet.
+- **`scripts/zmk_*.sh` and `img/` are left over from urob's config.** The Docker
+  build scripts no longer match this setup, and the images are superseded by
+  `draw/`.
 
-This is great but there are still a few rough edges:
+## Credits
 
-* When rolling keys, I sometimes unintentionally end up with "nested" key
-  sequences: `key 1` down, `key 2` down and up, `key 1` up. Because of the
-  `balanced` flavor, this would falsely register `key 1` as a mod. As a remedy,
-  I use ZMK's `positional hold-tap` feature to force HRMs to always resolve as
-  "tap" when the *next* key is on the same side of the keyboard. Problem
-  solved.
-* ... or at least almost. By default, positional-hold-tap
-  performs the positional check when the next key is *pressed*. This is not
-  ideal, because it prevents combining multiple modifiers on the same hand. To
-  fix this, I use the `hold-trigger-on-release` setting, which delays the
-  positional-hold-tap decision until the next key's *release*. With the setting,
-  multiple mods can be combined when held, while I still get the benefit from
-  positional-hold-tap when keys are tapped.
-* So far, nothing of the configuration depends on the duration of
-  `tapping-term-ms`. In practice, there are two reasons why I don't set it to
-  infinity:
-    1. Sometimes, in rare circumstances, I want to combine a mod with a
-    alpha-key *on the same hand* (e.g., when using the mouse with the other
-    hand). My positional hold-tap configuration prevents this *within* the
-    tapping term. By setting the tapping term to something large but not crazy
-    large (I use 280ms), I can still use same-hand `mod` + `alpha` shortcuts by
-    holding the mod for just a little while before tapping the alpha-key.
-    2. Sometimes, I want to press a modifier without another key (e.g., on
-    Windows, tapping `Win` opens the search menu). Because the `balanced`
-    flavour only kicks in when another key is pressed, this also requires
-    waiting past `tapping-term-ms`.
-* Finally, it is worth noting that this setup works best in combination with a
-  dedicated shift for capitalization during normal typing (I like sticky-shift
-  on a home-thumb). This is because shifting alphas is the one scenario where
-  pressing a mod may conflict with `require-prior-idle-ms`, which may result in
-  false negatives when typing fast.
-
-Here's my configuration (I use a bunch of [helper
-macros](https://github.com/urob/zmk-nodefree-config) to simplify the syntax, but they
-are not necessary):
-
-```C++
-/* use helper macros to define left and right hand keys */
-#include "../zmk-nodefree-config/keypos_def/keypos_36keys.h"                // keyposition helpers
-#define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4  // left-hand keys
-#define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4  // right-hand keys
-#define THUMBS LH2 LH1 LH0 RH0 RH1 RH2                                      // thumb keys
-
-/* left-hand HRMs */
-ZMK_BEHAVIOR(hml, hold_tap,
-    flavor = "balanced";
-    tapping-term-ms = <280>;
-    quick-tap-ms = <175>;                // repeat on tap-into-hold
-    require-prior-idle-ms = <150>;
-    bindings = <&kp>, <&kp>;
-    hold-trigger-key-positions = <KEYS_R THUMBS>;
-    hold-trigger-on-release;             // delay positional check until key-release
-)
-
-/* right-hand HRMs */
-ZMK_BEHAVIOR(hmr, hold_tap,
-    flavor = "balanced";
-    tapping-term-ms = <280>;
-    quick-tap-ms = <175>;                // repeat on tap-into-hold
-    require-prior-idle-ms = <150>;
-    bindings = <&kp>, <&kp>;
-    hold-trigger-key-positions = <KEYS_L THUMBS>;
-    hold-trigger-on-release;             // delay positional check until key-release
-)
-```
-
-### Required firmware
-
-After a recent round of patches, the above configuration now works with
-upstream ZMK. 
-
-Other parts of my configuration still require a few PRs that aren't yet in
-upstream ZMK. My personal [ZMK fork](https://github.com/urob/zmk) includes all
-PRs needed to compile my configuration. If you prefer to maintain your own fork
-with a custom selection of PRs, you might find this [ZMK-centric introduction
-to Git](https://gist.github.com/urob/68a1e206b2356a01b876ed02d3f542c7) helpful.
-
-### Troubleshooting
-
-Hopefully, the above configuration "just works". If it doesn't, here's a
-few smaller (and larger) things to try.
-
-* **Noticeable delay when tapping HRMs:** Increase `require-prior-idle-ms`. As a rule of thumb,
-  you want to set it to at least `10500/x` where `x` is your (relaxed) WPM for English prose.[^4]
-* **False negatives (same-hand):** Reduce `tapping-term-ms` (or disable
-  `hold-trigger-key-positions`)
-* **False negatives (cross-hand):** Reduce `require-prior-idle-ms` (or set flavor
-  to `hold-preferred` -- to continue using `hold-trigger-on-release`, you must
-  also [patch
-  ZMK](https://github.com/celejewski/zmk/commit/d7a8482712d87963e59b74238667346221199293)
-  or use [an already patched branch](https://github.com/urob/zmk))
-* **False positives (same-hand):** Increase `tapping-term-ms`
-* **False positives (cross-hand):** Increase `require-prior-idle-ms` (or set
-  flavor to `tap-preferred`, which requires holding HRMs past tapping term to
-  activate)
-
-## Using combos instead of a symbol layer
-
-I am a big fan of combos for all sort of things. In terms of comfort, I much prefer them
-over accessing layers that involve lateral thumb movements to be activated, especially
-when switching between different layers in rapid succession.
-
-One common concern about overloading the layout with combos is that they lead to
-misfires. Fortunately, the above-mentioned PR #1387, also adds a `require-prior-idle` option 
-for combos, which in my experience all but completely eliminates the problem -- even
-when rolling keys on the home row!
-
-My combo layout aims to place the most used symbols in easy-to-access
-locations while also making them easy to remember. Specifically:
-
-- the top vertical-combo row matches the symbols on a standard numbers row
-  (except `+` and `&` being swapped)
-- the bottom vertical-combo row is symmetric to the top row (subscript `_`
-  aligns with superscript `^`; minus `-` aligns with `+`; division `/` aligns
-  with multiplication `*`; logical-or `|` aligns with logical-and `&`)
-- parenthesis, braces, brackets are set up symmetrically as horizontal combos with `<`,
-  `>`, `{` and `}` being accessed from the Navigation layer
-- left-hand side combos for `tap`, `esc`, `enter`, `cut` (on <kbd>X</kbd> + <kbd>D</kbd>),
-  `copy` and `paste` that go well with right-handed mouse usage
-- <kbd>W</kbd> + <kbd>P</kbd> activates the smart mouse layer
-
-## Smart layers and other gimmicks
-
-##### Numword
-
-Inspired by Jonas Hietala's
-[Numword](https://www.jonashietala.se/blog/2021/06/03/the-t-34-keyboard-layout/#where-are-the-digits)
-for QMK, I implemented my own version of [Smart-layers for
-ZMK](https://github.com/zmkfirmware/zmk/pull/1451). It is triggered via a
-single tap on "Smart-Num". Numword continues to be activated as long as I
-type numbers, and deactivates automatically on any other keypress (holding it activates 
-a non-sticky num layer).
-
-After using Numword for about 6 months now, I have been overall very happy with it. When
-typing single digits, it effectively is a sticky-layer but with the added advantage that 
-I can also use it to type multiple digits. 
-
-The main downside is that if a sequence of numbers is *immediately* followed by any of the
-letters on which my numpad is located (WFPRSTXCD), then the automatic deactivation won't
-work. But this is rare -- most number sequences are terminated by `space`, `return` or some form
-of punctuation/delimination. To deal with the rare cases where they aren't, there is a 
-`CANCEL` key on the navigation-layer that deactivates Numword, Capsword and Smart-mouse. 
-(It also toggles off when pressing `Numword` again, but I find it cognitively easier to
-have a dedicated "off-switch" than keeping track of which modes are currently active.)
-
-
-##### Smart-Mouse
-
-Similarly to Numword, I have a smart-mouse layer (activated by comboing
-<kbd>W</kbd> + <kbd>P</kbd>), which replaces the navigation cluster with
-scroll and mouse-movements, and replaces the right thumbs with mouse buttons.
-Pressing any other key automatically deactivates the layer.
-
-##### Capsword
-
-My right thumb triggers three variations of shift: Tapping yields
-sticky-shift (used to capitalize alphas), holding activates a regular shift, and
-double-tapping (or equivalently shift + tap) activates ZMK's Caps-word behavior.
-
-One minor technical detail: While it would be possible to implement the double-tap functionality
-as a tap-dance, this would add a delay when using single taps. To avoid the delays, I 
-instead implemented the double-tap functionality as a mod-morph.
-
-##### Multi-purpose Navigation cluster
-
-To economize on keys, I am using hold-taps on my navigation cluster, which yield `home`, `end`,
-`begin/end of document`, and `delete word forward/backward` on long-presses.
-
-##### Swapper
-
-I am using [Nick Conway](https://github.com/nickconway)'s fantastic
-[tri-state](https://github.com/zmkfirmware/zmk/pull/1366) behavior for a
-one-handed Alt-Tab switcher (`PWin` and `NWin`).
-
-##### Repeat
-
-I recently switched to 25g-chocs on one of my keyboards. I already was very happy with
-my combos prior to that (even with heavy-ish MX-switches). But with the light chocs, I
-find that I can now even use them for regular typing. While I haven't yet tried
-placing alphas on combos, I am currently experimenting with a `repeat` combo on
-my home row that I use to reduce SFUs when typing double-letter words.
-
-## Issues and workarounds
-
-Since I switched from QMK to ZMK I have been very impressed with how easy it is
-to set up relatively complex layouts in ZMK. For the most parts I don't miss
-any functionality (to the contrary, I found that ZMK supports many features
-natively that would require complex user-space implementations in QMK). Below
-are a few remaining issues:
-
-- ZMK does not yet support "tap-only" combos
-  ([#544](https://github.com/zmkfirmware/zmk/issues/544)), requiring a brief
-  pause when wanting to chord HRMs that overlap with combo positions. As a
-  workaround, I implemented all homerow combos as homerow-mod-combos. This is
-  good enough for day-to-day, but does not address all edge cases (eg
-  dynamically adding/removing mods doesn't work well). Having a native solution
-  akin to QMK's "COMBO_MUST_TAP" property would be fantastic.
-- Another item on my wishlist are adaptive keys
-  ([#1624](https://github.com/zmkfirmware/zmk/issues/1624)). This would open
-  the door for things like <kbd>space</kbd><kbd>space</kbd> becoming
-  <kbd>.</kbd><kbd>space</kbd><kbd>sticky-shift</kbd>. (Using tap-dance isn't
-  really an option here due to the delay it adds)
-- A minor thing is that ZMK doesn't yet support any keys on the
-  desktop-user-page; e.g., OS sleep
-  ([#1077](https://github.com/zmkfirmware/zmk/issues/1077),
-  [#1535](https://github.com/zmkfirmware/zmk/issues/1535))
-- Very minor: `&bootloader` doesn't work with stm32 boards like the Planck
-  ([#1086](https://github.com/zmkfirmware/zmk/issues/1086))
-
-[^1]: Really what's happening is that `Shift` + my right home-thumb morph into
-  caps-word. This gives me two separate ways of activating it: (1) Holding the
-  homerow-mod shift on my left index-finger and then pressing my right home-thumb, which
-  is my new preferred way. Or, (2) double-tapping the right home-thumb, which also works
-  because the first tap yields sticky-shift, activating the mod-morph upon the second
-  tap. But even when only activating via double-tapping, this implementation is advantageous
-  compared to using tap-dance as it does not create any delay when single-tapping the key.
-
-[^2]: I call it "timer-less", because the large tapping-term makes the behavior
-  insensitive to the precise timings. One may say that there is still the
-  `require-prior-idle` timeout. However, with both a large tapping-term and
-  positional-hold-taps, the behavior is *not* actually sensitive to the
-  `require-prior-idle` timing: All it does is reduce the delay in typing; i.e., variations
-  in typing speed won't affect *what* is being typed but merely *how fast* it appears on
-  the screen.
-
-[^3]: The delay is determined by how quickly a key is released and is not
-  directly related to the tapping-term. But regardless of its length, most
-  people still find it noticable and disruptive.
-
-[^4]: E.g, if your WPM is 70 or larger, then the default of 150ms (=10500/70)
-    should work well. The rule of thumb is based on an average character length
-    of 4.7 for English words. Taking into account 1 extra tap for `space`, this
-    yields a minimum `require-prior-idle-ms` of (60 * 1000) / (5.7 * x) ≈ 10500 / x
-    milliseconds. The approximation errs on the safe side,
-    as in practice home row taps tend to be faster than average.
+- [urob](https://github.com/urob/zmk-config) for the original configuration:
+  "timeless" home-row mods (280 ms tapping term, balanced flavor, 150 ms
+  prior-idle, same-hand keys always tap), the combo layout, num-word, the
+  Alt-Tab switcher and the keymap-drawing approach. His readme explains the
+  home-row mod tuning in detail.
+- [ZMK](https://zmk.dev) for the firmware, and
+  [keymap-drawer](https://github.com/caksoylar/keymap-drawer) for the images.
