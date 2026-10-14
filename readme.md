@@ -87,8 +87,11 @@ modules instead, pinned to the same release in `config/west.yml`:
 [zmk-helpers](https://github.com/urob/zmk-helpers) (keymap macros),
 [zmk-auto-layer](https://github.com/urob/zmk-auto-layer) (num-word) and
 [zmk-tri-state](https://github.com/urob/zmk-tri-state) (Alt-Tab swapper).
-To upgrade, change every `v0.3` in `config/west.yml` and
-`.github/workflows/build.yml` to the next ZMK release.
+The firmware is built with a copy of ZMK's own v0.3 build workflow
+(`.github/workflows/build-user-config.yml`), kept only to use current GitHub
+action versions and pinned runner/container images. To upgrade, change every
+`v0.3` in `config/west.yml` to the next ZMK release and update that workflow
+copy from the same release (the note at its top says what was changed).
 
 ## Flashing new firmware
 

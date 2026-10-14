@@ -1,6 +1,6 @@
 # Official ZMK plus urob's behavior modules, all pinned to the same release.
 # To upgrade, bump every `revision` together to the next ZMK release tag
-# (and the `@v0.3` in .github/workflows/build.yml).
+# (and refresh .github/workflows/build-user-config.yml, see the note there).
 manifest:
   defaults:
     revision: v0.3
