@@ -11,6 +11,7 @@ on:
       - "draw/config.yaml"
       - "draw/cradio_layout.json"
       - "scripts/draw_overview.py"
+      - "scripts/draw_print.py"
       - "scripts/draw.sh"
       - "config/west.yml"
       - ".github/workflows/draw.yml"
@@ -38,8 +39,11 @@ jobs:
       - name: Install keymap-drawer
         run: pip install keymap-drawer==0.23.0
 
+      - name: Install fonts for the printable PDF
+        run: sudo apt-get install -y --no-install-recommends fonts-liberation fonts-dejavu-core
+
       - name: Draw keymaps
-        run: scripts/draw.sh
+        run: CHROME="$(command -v google-chrome || command -v chromium)" scripts/draw.sh
 
       - name: Commit updated images
         run: |

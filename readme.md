@@ -48,10 +48,16 @@ The images are generated with
 [keymap-drawer](https://github.com/caksoylar/keymap-drawer) by the "Draw
 keymaps" GitHub Action whenever a keymap changes, so they always match the
 firmware: [`cradio.svg`](draw/cradio.svg) (primary, shown above) and
-[`cradio_legacy.svg`](draw/cradio_legacy.svg) (legacy). Every layer is also
+[`cradio_legacy.svg`](draw/cradio_legacy.svg) (legacy).
+
+**Printable version:** [`cradio-print.pdf`](draw/cradio-print.pdf) (primary) and
+[`cradio_legacy-print.pdf`](draw/cradio_legacy-print.pdf) (legacy) are black and
+white on letter paper, best printed double-sided: page 1 is the overview with
+plain grey corners and a keycap legend; page 2 draws every layer separately,
+with the key you hold to reach each layer greyed out. Every layer is also
 listed as text in `draw/cradio.yaml` and `draw/cradio_legacy.yaml`. To redraw
 locally, run `scripts/draw.sh` (needs Python 3.12+ and
-`pip install keymap-drawer==0.23.0`). Labels and styling live in
+`pip install keymap-drawer==0.23.0`; the PDFs also need Chrome or Chromium). Labels and styling live in
 [`draw/config.yaml`](draw/config.yaml), key positions in
 [`draw/cradio_layout.json`](draw/cradio_layout.json).
 

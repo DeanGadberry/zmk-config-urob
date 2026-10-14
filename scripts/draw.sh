@@ -3,9 +3,10 @@
 #
 # Requires keymap-drawer (Python >= 3.12):  pip install keymap-drawer==0.23.0
 #
-# Draws every config/cradio*.keymap, i.e. one image per firmware variant:
+# Draws every config/cradio*.keymap, i.e. per firmware variant:
 # draw/<name>.svg, a one-page overview in which the corners of every key show
-# its other layers, plus a combos diagram.
+# its other layers, plus a combos diagram; and draw/<name>-print.pdf, a
+# black-and-white printable version (overview + every layer separately).
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -21,6 +22,9 @@ for module in helpers auto-layer; do
         git -c advice.detachedHead=false clone -q --depth 1 -b "$revision" "https://github.com/urob/zmk-$module" "$dir"
     fi
 done
+
+# Chrome/Chromium renders the printable PDFs; they are skipped if none is found.
+chrome="${CHROME:-$(command -v google-chrome chromium chromium-browser 2>/dev/null | head -1)}"
 
 cd "$root"  # zmk_additional_includes in draw/config.yaml are relative to here
 for keymap in config/cradio*.keymap; do
@@ -43,4 +47,11 @@ yaml.safe_dump(km, sys.stdout, allow_unicode=True, sort_keys=False)' "$layout" >
     keymap -c "$cfg" draw "draw/${name}_overview.yaml" >"draw/$name.svg"
     rm "draw/${name}_overview.yaml"
     sed -i '/<text.*class="label"/d' "draw/$name.svg"  # no layer titles, like the original
+
+    # Printable black-and-white PDF: page 1 overview, page 2 every layer.
+    if [[ -n "$chrome" ]]; then
+        python3 scripts/draw_print.py "draw/$name.yaml" "draw/$name-print.pdf" "$chrome"
+    else
+        echo "No Chrome/Chromium found (set CHROME=...); skipping draw/$name-print.pdf"
+    fi
 done
