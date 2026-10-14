@@ -242,7 +242,7 @@ ZMK_LAYER(fn,
 //╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯
 )
 
-// 10-key numpad under the right hand; "/" + "*" combo gives "=" (see combos.dtsi).
+// 10-key numpad under the right hand; "/" + "*" combo gives "=", "7" + "8" gives Backspace (see combos.dtsi).
 // CANCEL exits num-word. 0 and . are on the right thumbs.
 ZMK_LAYER(num,
 //╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮

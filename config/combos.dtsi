@@ -74,3 +74,6 @@ ZMK_COMBO(pipe,  &kp PIPE,      RM3 RB3,     DEF NAV    , COMBO_TERM_SLOW, COMBO
 /* Num layer (10-key) */
 // "/" + "*" (inner column) -> "=". No require-prior-idle so it works right after a digit.
 ZMK_COMBO(num_eq, &kp EQUAL,    RT0 RM0,     NUM,         COMBO_TERM_SLOW)
+// "7" + "8" -> Backspace. Fast term so typing "78" doesn't trigger it; no
+// require-prior-idle so it works right after a digit.
+ZMK_COMBO(num_bspc, &kp BSPC,   RT1 RT2,     NUM,         COMBO_TERM_FAST)

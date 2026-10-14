@@ -522,3 +522,11 @@ combos:
   - num
   a: left
   o: 0.35
+- p:
+  - 6
+  - 7
+  k: Bspc
+  l:
+  - num
+  a: top
+  o: 0.45
