@@ -80,7 +80,7 @@ h1 {{ font-size: 14pt; margin: 0 0 4pt; }}
 </style></head><body>
 <section class="p1"><h1>{title} — overview</h1><div class="svg"><img src="overview.svg"></div>
 <div class="legend"><div class="lg">{cells}</div>
-<div class="note">Black combos (<b>=</b> and <b>Bspc</b>) only work on the Num layer.</div></div></section>
+<div class="note">Black combos (e.g. <b>Bspc</b> = 7 + 8) only work on the Num layer.</div></div></section>
 <section class="p2"><h1>{title} — every layer</h1><div class="svg"><img src="layers.svg"></div>
 <div class="legend"><span class="swatch"></span> grey key = the key you hold to reach that layer
 (Sys: hold Smart-num, then Spc).</div></section>

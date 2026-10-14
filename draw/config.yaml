@@ -47,8 +47,6 @@ parse_config:
   # combos below instead of drawing them twice.
   # (Two spaces keep a label on one line.)
   zmk_combos:
-    # "=" (num layer) sits on the same keys as "^"; draw it beside them.
-    combo_num_eq: { align: left, o: 0.35 }
     # num-layer Backspace sits on the same keys as the letter-layer Bspc combo.
     combo_num_bspc: { align: top, o: 0.45 }
     combo_lt: { hidden: true }

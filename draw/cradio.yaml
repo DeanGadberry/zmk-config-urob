@@ -162,15 +162,15 @@ layers:
   - type: trans
   - type: trans
   - type: trans
-  - Exit
+  - '='
   - '1'
   - '2'
   - '3'
-  - Enter
-  - type: trans
-  - type: trans
-  - '0'
   - .
+  - type: trans
+  - type: trans
+  - Exit
+  - '0'
   sys:
   - BT 1
   - BT 2
@@ -514,14 +514,6 @@ combos:
   k: '|'
   l:
   - Combos
-- p:
-  - 5
-  - 15
-  k: '='
-  l:
-  - num
-  a: left
-  o: 0.35
 - p:
   - 6
   - 7
