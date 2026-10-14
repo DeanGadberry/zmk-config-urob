@@ -3,7 +3,8 @@
 #
 # Requires keymap-drawer (Python >= 3.12):  pip install keymap-drawer==0.23.0
 #
-# Draws every config/cradio*.keymap, i.e. per firmware variant:
+# Draws the primary keymap (config/cradio.keymap); the legacy images are kept
+# as they are. Output:
 # draw/<name>.svg, a one-page overview in which the corners of every key show
 # its other layers, plus a combos diagram; and draw/<name>-print.pdf, a
 # black-and-white printable version (overview + every layer separately).
@@ -24,10 +25,10 @@ for module in helpers auto-layer; do
 done
 
 # Chrome/Chromium renders the printable PDFs; they are skipped if none is found.
-chrome="${CHROME:-$(command -v google-chrome chromium chromium-browser 2>/dev/null | head -1)}"
+chrome="${CHROME:-$(command -v google-chrome chromium chromium-browser 2>/dev/null | head -1 || true)}"
 
 cd "$root"  # zmk_additional_includes in draw/config.yaml are relative to here
-for keymap in config/cradio*.keymap; do
+for keymap in config/cradio.keymap; do  # legacy images in draw/ are a frozen snapshot
     name="$(basename "$keymap" .keymap)"
     echo "Drawing $name..."
     # Parse; combos go on their own "Combos" diagram instead of on every

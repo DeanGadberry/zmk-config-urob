@@ -37,11 +37,17 @@ The keyboard has two independent keymaps, each built as its own firmware:
 | Keymap | Files | Num layer | Firmware |
 | --- | --- | --- | --- |
 | **primary** | `config/base.keymap`, `config/combos.dtsi` | 10-key numpad under the right hand | `cradio_{left,right}-nice_nano_v2-zmk.uf2` |
-| **legacy** | `config/legacy.keymap`, `config/combos_legacy.dtsi` | the earlier layout, numpad under the left hand | `cradio_{left,right}-nice_nano_v2-cradio_legacy-zmk.uf2` |
+| **legacy** | `config/legacy.keymap`, `config/combos_legacy.dtsi` | the earlier layout, numpad under the left hand | prebuilt in [`firmware/legacy/`](firmware/legacy/) |
 
 Everything below describes the primary keymap; the legacy one differs only in
 its Num layer and combos ([`draw/cradio_legacy.svg`](draw/cradio_legacy.svg),
 [`draw/cradio_legacy-print.pdf`](draw/cradio_legacy-print.pdf)).
+
+The legacy keymap is no longer built on every push. Its firmware was built once
+(ZMK v0.3, including the Bluetooth pairing fix) and is kept in
+[`firmware/legacy/`](firmware/legacy/); flash those files the same way as below.
+Its images in `draw/` are a snapshot and are no longer redrawn. To rebuild it,
+add its two entries back to `build.yaml` (the comment there shows them).
 
 ## Layers
 
@@ -172,8 +178,8 @@ the keyboard from the computer's Bluetooth settings and pair it fresh.
 2. **Commit and push to `main`.** Two GitHub Actions run automatically:
    - **Build ZMK firmware** builds all firmware files into one `firmware`
      download.
-   - **Draw keymaps** redraws `draw/*.svg` and the printable PDFs and commits
-     them, so the pictures always match the firmware.
+   - **Draw keymaps** redraws `draw/cradio.svg` and the printable PDF and
+     commits them, so the pictures always match the firmware.
 3. **Flash** both halves as described above.
 
 | Path | What it is |
@@ -186,6 +192,7 @@ the keyboard from the computer's Bluetooth settings and pair it fresh.
 | `build.yaml` | Which firmware files to build |
 | `.github/workflows/` | The build and drawing Actions |
 | `draw/` | Keymap images, printable PDFs, drawing settings |
+| `firmware/legacy/` | Prebuilt legacy firmware (not rebuilt) |
 | `scripts/draw.sh` | Redraws the images locally (Python 3.12+, `pip install keymap-drawer==0.23.0`; the PDFs also need Chrome or Chromium) |
 
 **Firmware version:** official ZMK **v0.3**, plus three of urob's modules pinned
@@ -202,7 +209,7 @@ copy from the same release (the note at its top lists what was changed).
 To add another keymap variant, copy `cradio_legacy.keymap` and `legacy.keymap`
 under a new name and add matching entries to `build.yaml` with
 `cmake-args: -DKEYMAP_FILE=${GITHUB_WORKSPACE}/config/<name>.keymap` and an
-`artifact-name`.
+`artifact-name` (the commented-out legacy entries there are an example).
 
 ## Known issues
 
