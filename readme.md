@@ -100,7 +100,7 @@ holding `Spc` first turns the `Smart-num` key into Mute.
 
 | Key | Action |
 | --- | --- |
-| Q · W · E · R | Bluetooth device 1 · 2 · 3 · 4 (see [known issues](#known-issues)) |
+| Q · W · E · R | Bluetooth device 1 · 2 · 3 · 4 |
 | T | Bluetooth clear: forget the pairing of the current device |
 | G / H | Bootloader for flashing (left / right half) |
 | B / N | Restart (left / right half) |
@@ -206,10 +206,6 @@ under a new name and add matching entries to `build.yaml` with
 
 ## Known issues
 
-- **Only Bluetooth devices 1 and 2 work.** `config/cradio.conf` allows 3
-  pairings, and the left half uses one of them for the right half. BT 3 and BT 4
-  do nothing until `CONFIG_BT_MAX_PAIRED` (and `CONFIG_BT_MAX_CONN`) are raised
-  to 5.
 - **Sys layer order:** you have to hold Smart-num *before* Spc; the other way
   round mutes the audio.
 - **Caps Word no longer turns off when you press a modifier.** That came from
