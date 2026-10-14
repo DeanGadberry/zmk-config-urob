@@ -84,6 +84,64 @@ modules instead, pinned to the same release in `config/west.yml`:
 To upgrade, change every `v0.3` in `config/west.yml` and
 `.github/workflows/build.yml` to the next ZMK release.
 
+## Flashing new firmware
+
+Do this after changing the keymap (or to update ZMK). Each half is flashed
+separately over USB.
+
+**1. Download the firmware.** On GitHub go to **Actions → Build ZMK firmware**,
+open the latest run on `main` and download **firmware** at the bottom of the
+page. Unzip it. The primary keymap uses:
+
+| Half | File |
+| --- | --- |
+| left | `cradio_left-nice_nano_v2-zmk.uf2` |
+| right | `cradio_right-nice_nano_v2-zmk.uf2` |
+
+(The legacy keymap uses the `…-cradio_legacy-zmk.uf2` files instead.)
+
+**2. Plug the left half in with USB and put it in bootloader mode,** either:
+
+- **with the keymap:** hold **Smart-num** first, *then* also hold **Spc**, then
+  tap **G**. The order matters: holding Spc first turns the Smart-num key into
+  Mute. (`G` resets the left half, `H` the right half: each Boot key only
+  affects the half it is on.)
+- **with the reset button:** double-tap it quickly (about half a second apart;
+  a single tap just restarts the keyboard). Without a button, briefly touch the
+  nice!nano's **RST** and **GND** pads together twice with tweezers.
+
+**3. Copy the file.** A USB drive named **NICENANO** appears within a few
+seconds (Mac: Finder sidebar under *Locations*; Windows: File Explorer → *This
+PC*; Linux: file manager sidebar or `/media/<user>/NICENANO`). Drag the left
+`.uf2` file onto it. The drive disappears on its own when done; an "ejected
+improperly" warning is normal.
+
+**4. Repeat for the right half** with the right-hand file (`H` instead of `G`).
+
+**If NICENANO doesn't show up:**
+
+- Use a data cable; many USB cables are charge-only.
+- The reset double-tap was too slow; try again faster.
+- Plug straight into the computer instead of a hub or dock.
+- Make sure the half you put in bootloader mode is the one plugged in.
+
+**If the halves won't connect or Bluetooth misbehaves after flashing:** flash
+`settings_reset-nice_nano_v2-zmk.uf2` (also in the firmware download) to both
+halves, which clears stored pairings, then flash
+the normal firmware again, then remove the keyboard from the computer's
+Bluetooth settings and pair it fresh.
+
+### System keys (Bluetooth, bootloader, reset)
+
+Hold **Smart-num**, then also hold **Spc** (same order as above), then tap:
+
+| Key | Action |
+| --- | --- |
+| Q · W · E · R | Bluetooth device 1 · 2 · 3 · 4 |
+| T | Bluetooth clear: forget the pairing of the current device |
+| G / H | Bootloader (left / right half) |
+| B / N | Restart (left / right half) |
+
 ## Timeless homerow mods
 
 [Homerow mods](https://precondition.github.io/home-row-mods) (aka "HRMs") can
